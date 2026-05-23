@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Montserrat, 'Arial';
+}
+
+body {
+    padding: 1em;
+    height: 100vh;
+    background: var(--gradient);
+}
+
+main {
+    height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section {
+    height: 32em;
+    width: 54em;
+    background-color: var(--background-fundo);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.container-lado-esquerdo-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 3em;
+}
+
+.logo h1 {
+    color: var(--font-color1);
+    letter-spacing: 2px;
+}
+
+h1.roxo {
+    color: var(--primary-color);
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5em;
+    height: 100%;
+}
+
+form h1, h2, label {
+    color: var(--font-color1)
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.input p {
+    text-align: center;
+    color: var(--font-color1);
+    margin-top: 10px;
+}
+
+.input a {
+    color: var(--font-color1);
+    transition: 0.5s;
+    text-decoration: none;
+}
+
+.input a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+input {
+    text-indent: 5px;
+    padding: 0.5em;
+    width: 20em;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--font-color2);
+    color: var(--font-color1);
+}
+
+
+#submit {
+    background-color: var(--primary-color);
+    transition: 0.5s;
+    width: 10em;
+}
+
+#submit:hover {
+    cursor: pointer;
+    background-color: #4700ac;
+}
+
+

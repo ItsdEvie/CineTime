@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Montserrat, 'Arial';
+}
+
+body {
+    height: 100vh;
+    background-color: var(--background-fundo);
+}
+
+header {
+    height: 15vh;
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--header-fundo);
+}
+
+header img {
+    height: 3em;
+}
+
+header h1 {
+    color: var(--font-color1);
+    letter-spacing: 2px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.roxo {
+    color: var(--primary-color);
+}
+
+.nav-list ul {
+    display: flex;
+    gap: 1em;
+}
+
+.nav-list li, a{
+    list-style: none;
+    color: var(--font-color1);
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+.nav-list a:hover {
+    color: var(--primary-color);
+}
+
+main {
+    height: 82vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 3em;
+}
+
+.fundo-blur {
+    background-color: #6300ee18;
+    height: 14em;
+    width: 52em;
+    filter: blur(30px);
+    border-radius: 50px;
+    position: absolute;
+    z-index: -1;
+}
+
+.fundo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+main h1 {
+    color: var(--font-color1);
+    font-weight: bold;
+    font-size: 32px;
+    text-align: center;
+
+}
+
+main img {
+    height: 20em;
+}
+
+
+

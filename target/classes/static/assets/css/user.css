@@ -1,0 +1,231 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--gradient);
+    color: var(--font-color1);
+    display: flex;
+    margin: 0;
+}
+
+
+.sidebar {
+    width: 160px;
+    min-width: 160px;
+    background-color: var(--header-fundo);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0;
+    gap: 4px;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    color: var(--font-color1);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 0;
+    transition: background 0.2s;
+}
+
+.sidebar a:hover {
+    background-color: rgba(98, 0, 238, 0.15);
+}
+
+.sidebar a.active {
+    background-color: transparent;
+}
+
+.sidebar a i {
+    font-size: 16px;
+}
+
+.main {
+    background: var(--gradient);
+    padding: 28px 36px;
+    margin: 20px;
+    width: 100%;
+    height: 100vh;
+}
+
+.main h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--font-color1);
+    margin-bottom: 28px;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background-color: #3a3a3a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.avatar i {
+    font-size: 52px;
+    color: #888;
+}
+
+.username {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--font-color1);
+}
+
+.bio-box {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 28px;
+    background: rgba(255, 255, 255, 0.03);
+    width: 100%;
+}
+
+.bio-box .bio-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--font-color1);
+    margin-bottom: 6px;
+}
+
+.bio-box p {
+    font-size: 11px;
+    font-style: italic;
+    color: #999;
+    line-height: 1.5;
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--font-color1);
+    margin-bottom: 14px;
+}
+
+.movie-grid {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.movie-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 155px;
+}
+
+.movie-thumb {
+    width: 155px;
+    height: 100px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1a1a2e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.movie-thumb.matrix {
+    background: linear-gradient(135deg, #0a0a0a 0%, #001a00 100%);
+}
+
+.movie-thumb.matrix::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 4px,
+            rgba(0, 255, 0, 0.04) 4px,
+            rgba(0, 255, 0, 0.04) 5px);
+}
+
+.movie-thumb.matrix .thumb-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: #00cc44;
+    text-shadow: 0 0 10px #00cc44, 0 0 20px #00cc44;
+    z-index: 1;
+}
+
+.movie-thumb.godfather {
+    background: linear-gradient(135deg, #0d0d0d 0%, #1a0a00 100%);
+}
+
+.movie-thumb.godfather .thumb-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    z-index: 1;
+}
+
+.movie-thumb.godfather .thumb-content i {
+    font-size: 36px;
+    color: #c8a96e;
+}
+
+.movie-thumb.godfather .thumb-content .gf-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.1;
+}
+
+.movie-thumb.godfather .thumb-content .gf-logo span:first-child {
+    font-size: 9px;
+    color: #c8a96e;
+    letter-spacing: 1px;
+    font-style: italic;
+}
+
+.movie-thumb.godfather .thumb-content .gf-logo span:last-child {
+    font-size: 13px;
+    font-weight: 700;
+    color: #c8a96e;
+    font-style: italic;
+}
+
+.movie-thumb.inception {
+    background: linear-gradient(135deg, #050510 0%, #0a0a2a 50%, #1a0a0a 100%);
+}
+
+.movie-thumb.inception .thumb-text {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: #e8c84a;
+    text-shadow: 0 0 8px #e8c84a;
+    z-index: 1;
+}
+
+.movie-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.movie-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--font-color1);
+}
