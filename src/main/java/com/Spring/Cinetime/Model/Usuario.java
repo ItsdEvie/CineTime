@@ -2,7 +2,7 @@ package com.Spring.Cinetime.Model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 //infomações do nosso usuario
 @Entity
@@ -17,7 +17,7 @@ public class Usuario {
     private String name;
 
     @Column(nullable = false)
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 
     @Column(nullable = false)
     private String email;
@@ -32,7 +32,7 @@ public class Usuario {
 
     }
 
-    public Usuario(String name, Date dataNascimento, String email, String senha, String confirmarSenha) {
+    public Usuario(String name, LocalDate dataNascimento, String email, String senha, String confirmarSenha) {
         this.name = name;
         this.dataNascimento = dataNascimento;
         this.email = email;
@@ -53,9 +53,9 @@ public class Usuario {
         this.name = name;
     }
 
-    public Date getDataNascimento() {return dataNascimento;}
+    public LocalDate getDataNascimento() {return dataNascimento;}
 
-    public void setDataNascimento(Date dataNascimento) {this.dataNascimento = dataNascimento;}
+    public void setDataNascimento(LocalDate dataNascimento) {this.dataNascimento = dataNascimento;}
 
     public String getEmail() {return email; }
 

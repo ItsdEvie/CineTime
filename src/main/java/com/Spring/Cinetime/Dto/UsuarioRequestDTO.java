@@ -1,27 +1,27 @@
 package com.Spring.Cinetime.Dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
-import java.util.Date;
-
+import java.time.LocalDate;
 
 public record UsuarioRequestDTO(
 
-            @NotBlank(message = "Nome De usuario é Obrigatorio.")
-            String name,
+        @NotBlank(message = "Nome de usuário é obrigatório")
+        String name,
 
-            @NotNull(message = "Email é obrigatorio")
-            String email,
+        @Email
+        @NotBlank(message = "Email é obrigatório")
+        String email,
 
-            @NotNull(message = "Data é obrigatorio")
-            Date date,
+        @NotNull(message = "Data é obrigatória")
+        LocalDate date,
 
-            @Positive@NotNull(message = "Senha é obrigatorio")
-            String senha,
+        @NotBlank(message = "Senha é obrigatória")
+        String senha,
 
-            @NotBlank@NotNull(message = "Senha é obrigatorio")
-            String confirmarSenha
+        @NotBlank(message = "Confirmação da senha é obrigatória")
+        String confirmarSenha
+
 ) {}
-
