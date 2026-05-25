@@ -5,9 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="/src/main/resources/static/assets/css/root.css">
-    <link rel="stylesheet" href="/src/main/resources/static/assets/css/salaconfig.css">
-    <link rel="shortcut icon" href="/src/main/resources/static/assets/img/logo.webp" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/css/root.css">
+    <link rel="stylesheet" href="/assets/css/salaconfig.css">
+    <link rel="shortcut icon" href="/assets/img/logo.webp" type="image/x-icon">
 
     <title>CineTime</title>
 </head>
@@ -16,7 +16,7 @@
 
     <header class="cine-header">
         <button class="header-icon" id="btn-header-action" title="Voltar / Início" aria-label="Ação de navegação">
-            <a href="/src/main/resources/templates/home.html" style="color: var(--font-color1);">
+            <a href="/home.html" style="color: var(--font-color1);">
                 <svg id="icon-home" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -111,7 +111,7 @@
         const modalError = document.getElementById('modal-error');
 
         button_criar_sala.addEventListener('click', (e) => {
-            window.location.href = "/src/main/resources/templates/sala.html";
+            window.location.href = "/sala.html";
         });
 
         function showToast(msg, duration = 2800) {
