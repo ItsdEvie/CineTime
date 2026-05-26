@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="assets/css/root.css"
+    />
+    <link
+      rel="stylesheet"
+      href="assets/css/userconfig.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="assets/img/logo.webp"
+      type="image/x-icon"
+    />
+    <title>CineTime</title>
+  </head>
+
+  <body>
+    <div class="topbar">
+      <h1>Configurações de Usuário</h1>
+    </div>
+
+    <div class="page-body">
+      <div class="card">
+        <div class="profile-grid">
+          <div class="profile-left">
+            <div class="avatar-wrap">
+              <div class="avatar-circle" id="avatar-circle">
+                <svg
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  id="avatar-icon"
+                >
+                  <path
+                    d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
+                  />
+                </svg>
+                <img id="avatar-preview" alt="Foto de perfil" />
+              </div>
+              <div
+                class="avatar-overlay"
+                id="avatar-overlay"
+                title="Alterar foto"
+              >
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.92c.04-.3.07-.61.07-.93s-.03-.63-.07-.93l2-1.56c.18-.14.23-.41.12-.61l-1.9-3.28c-.12-.22-.37-.3-.59-.22l-2.36.95c-.49-.38-1.01-.69-1.58-.92l-.36-2.51c-.04-.24-.25-.41-.49-.41h-3.8c-.24 0-.44.17-.48.41l-.36 2.51c-.57.23-1.09.54-1.58.92l-2.36-.95c-.22-.08-.47 0-.59.22L2.74 9.87c-.12.21-.08.47.12.61l2 1.56c-.04.3-.07.62-.07.94s.03.63.07.93l-2 1.56c-.18.14-.23.41-.12.61l1.9 3.28c.12.22.37.3.59.22l2.36-.95c.49.38 1.01.69 1.58.92l.36 2.51c.04.24.25.41.49.41h3.8c.24 0 .44-.17.48-.41l.36-2.51c.57-.23 1.09-.54 1.58-.92l2.36.95c.22.08.47 0 .59-.22l1.9-3.28c.12-.21.07-.47-.12-.61l-2-1.56z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <input type="file" id="file-input" accept="image/*" />
+            <button class="btn-foto" id="btn-foto">Alterar Foto</button>
+          </div>
+
+          <div class="profile-right">
+            <div class="row-2">
+              <div class="field">
+                <label for="username">Nome de Usuário</label>
+                <input type="text" id="username" placeholder="Ex: fulano123" />
+              </div>
+              <div class="field">
+                <label for="birthdate">Data de Nascimento</label>
+                <input
+                  type="text"
+                  id="birthdate"
+                  placeholder="mm/dd/aaaa"
+                  maxlength="10"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label for="bio">Biografia</label>
+              <textarea
+                id="bio"
+                placeholder="Dê um toque de humor. Você pode exibir diferentes gêneros, dependendo do template!"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-row">
+        <div class="card-sm">
+          <div class="card-sm-title">Informações da conta</div>
+          <div class="field-sm">
+            <label for="email">E-mail</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Ex: mauricio@gmail.com"
+            />
+          </div>
+          <div class="field-sm">
+            <label for="senha">Trocar Senha</label>
+            <input type="password" id="senha" placeholder="••••••••••••••" />
+          </div>
+        </div>
+
+        <div class="card-sm">
+          <div class="card-sm-title">Selecionar Idioma</div>
+          <select id="idioma">
+            <option value="pt">Português</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+          </select>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn-save" id="btn-save">Salvar Alterações</button>
+        <a href="user.html"
+          ><button class="btn-cancel" id="btn-cancel">Cancelar</button></a
+        >
+      </div>
+    </div>
+    <div class="toast" id="toast">
+      <div class="toast-dot"></div>
+      <span id="toast-msg">Alterações salvas com sucesso!</span>
+    </div>
+
+    <script>
+      // =========================
+      // ELEMENTOS FOTO PERFIL
+      // =========================
+      const btnFoto = document.getElementById("btn-foto");
+      const avatarOverlay = document.getElementById("avatar-overlay");
+      const fileInput = document.getElementById("file-input");
+      const avatarPreview = document.getElementById("avatar-preview");
+      const avatarIcon = document.getElementById("avatar-icon");
+
+      // =========================
+      // CARREGAR USUÁRIO LOGADO
+      // =========================
+      async function carregarUsuario() {
+        const userId = localStorage.getItem("userId");
+
+        // verifica se existe login salvo
+        if (!userId) {
+          alert("Usuário não está logado.");
+          window.location.href = "login.html";
+          return;
+        }
+
+        try {
+          // busca usuário no backend
+          const response = await fetch(
+            `http://localhost:8080/api/Usuarios/${userId}`,
+          );
+
+          if (!response.ok) {
+            throw new Error("Erro ao buscar usuário");
+          }
+
+          const usuario = await response.json();
+
+          console.log("Usuário carregado:", usuario);
+
+          // =========================
+          // CAMPOS USUÁRIO
+          // =========================
+          document.getElementById("username").value = usuario.name || "";
+
+          document.getElementById("email").value = usuario.email || "";
+
+          // =========================
+          // DATA FORMATADA
+          // =========================
+          if (usuario.dataNascimento) {
+            const partes = usuario.dataNascimento.split("-");
+
+            const ano = partes[0];
+            const mes = partes[1];
+            const dia = partes[2].split("T")[0];
+
+            document.getElementById("birthdate").value = `${dia}/${mes}/${ano}`;
+          }
+
+          // =========================
+          // FOTO PERFIL
+          // =========================
+          const fotoSalva = localStorage.getItem("fotoPerfil");
+
+          if (fotoSalva) {
+            avatarPreview.src = fotoSalva;
+            avatarPreview.style.display = "block";
+
+            avatarIcon.style.display = "none";
+          }
+
+          // =========================
+          // BIOGRAFIA
+          // =========================
+          const bioSalva = localStorage.getItem("biografiaUsuario");
+
+          if (bioSalva) {
+            document.getElementById("bio").value = bioSalva;
+          }
+        } catch (error) {
+          console.error(error);
+
+          alert("Erro ao carregar usuário.");
+        }
+      }
+
+      // executa ao abrir página
+      carregarUsuario();
+
+      // =========================
+      // FORMATAÇÃO DATA
+      // =========================
+      const birthdate = document.getElementById("birthdate");
+
+      birthdate.addEventListener("input", function () {
+        let v = this.value.replace(/\D/g, "");
+
+        if (v.length > 2) v = v.slice(0, 2) + "/" + v.slice(2);
+
+        if (v.length > 5) v = v.slice(0, 5) + "/" + v.slice(5, 9);
+
+        this.value = v;
+      });
+
+      // =========================
+      // FOTO PERFIL
+      // =========================
+      function triggerFileSelect() {
+        fileInput.click();
+      }
+
+      btnFoto.addEventListener("click", triggerFileSelect);
+
+      avatarOverlay.addEventListener("click", triggerFileSelect);
+
+      fileInput.addEventListener("change", function () {
+        const file = this.files[0];
+
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          const imagemBase64 = e.target.result;
+
+          // mostra imagem
+          avatarPreview.src = imagemBase64;
+
+          avatarPreview.style.display = "block";
+
+          avatarIcon.style.display = "none";
+
+          // salva localStorage
+          localStorage.setItem("fotoPerfil", imagemBase64);
+        };
+
+        reader.readAsDataURL(file);
+      });
+
+      // =========================
+      // TOAST
+      // =========================
+      function showToast(msg, duration = 2800) {
+        const toast = document.getElementById("toast");
+
+        const toastMsg = document.getElementById("toast-msg");
+
+        toastMsg.textContent = msg;
+
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, duration);
+      }
+
+      // =========================
+      // SALVAR ALTERAÇÕES
+      // =========================
+      document
+        .getElementById("btn-save")
+        .addEventListener("click", async function () {
+          const userId = localStorage.getItem("userId");
+
+          const username = document.getElementById("username").value.trim();
+
+          const birthdate = document.getElementById("birthdate").value.trim();
+
+          const email = document.getElementById("email").value.trim();
+
+          const bio = document.getElementById("bio").value.trim();
+
+          const senha = document.getElementById("senha").value.trim();
+
+          // salva bio
+          localStorage.setItem("biografiaUsuario", bio);
+
+          // =========================
+          // DATA FORMATADA
+          // =========================
+          const partesData = birthdate.split("/");
+
+          const dataFormatada = `${partesData[2]}-${partesData[1]}-${partesData[0]}`;
+
+          // =========================
+          // VALIDAÇÕES
+          // =========================
+          if (!username) {
+            showToast("Por favor, preencha o Nome de Usuário.");
+
+            document.getElementById("username").focus();
+
+            return;
+          }
+
+          if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showToast("Por favor, insira um e-mail válido.");
+
+            document.getElementById("email").focus();
+
+            return;
+          }
+
+          // =========================
+          // BODY REQUEST
+          // =========================
+          const bodyData = {
+            name: username,
+            date: dataFormatada,
+            email: email,
+          };
+
+          // adiciona senha SOMENTE se preenchida
+          if (senha) {
+            bodyData.senha = senha;
+            bodyData.confirmarSenha = senha;
+          }
+
+          try {
+            const response = await fetch(
+              `http://localhost:8080/api/Usuarios/${userId}`,
+              {
+                method: "PUT",
+
+                headers: {
+                  "Content-Type": "application/json",
+                },
+
+                body: JSON.stringify(bodyData),
+              },
+            );
+
+            if (response.ok) {
+              const usuarioAtualizado = await response.json();
+
+              console.log(usuarioAtualizado);
+
+              showToast("Alterações salvas com sucesso!");
+            } else {
+              showToast("Erro ao atualizar usuário.");
+            }
+          } catch (error) {
+            console.error(error);
+
+            showToast("Erro de conexão com o servidor.");
+          }
+        });
+
+      // =========================
+      // CANCELAR
+      // =========================
+      document
+        .getElementById("btn-cancel")
+        .addEventListener("click", function () {
+          document.getElementById("username").value = "";
+          document.getElementById("birthdate").value = "";
+          document.getElementById("bio").value = "";
+          document.getElementById("email").value = "";
+          document.getElementById("senha").value = "";
+          document.getElementById("idioma").value = "pt";
+
+          avatarPreview.style.display = "none";
+          avatarIcon.style.display = "block";
+
+          fileInput.value = "";
+
+          showToast("Alterações descartadas.");
+        });
+    </script>
+  </body>
+</html>
