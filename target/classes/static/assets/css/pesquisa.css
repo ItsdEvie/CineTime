@@ -68,13 +68,28 @@ header {
     border-color: var(--primary-color);
 }
 
-/* O texto do título embaixo da imagem */
+/* título embaixo da imagem */
 .titulo-filme-pesquisa {
     color: var(--font-color1) !important;
     font-weight: 600 !important;
-    font-size: 0.9rem !important; /* Letra ligeiramente menor para encaixar melhor nos cards compactos */
+    font-size: 0.95rem !important;
     text-align: center !important;
-    margin-top: 5px;
+    margin-top: 10px !important;
+    padding: 0 5px !important;
+
+    /* SEGURANÇA: Evita que títulos gigantescos quebrem o alinhamento dos cards */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important; /* Trava em no máximo 2 linhas */
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+
+    transition: color 0.3s ease !important; /* Transição suave para o efeito */
+}
+
+.card-filme-pesquisa:hover .titulo-filme-pesquisa {
+    color: var(--primary-color) !important;
+    text-decoration: none;
 }
 
 /* Container principal da página */

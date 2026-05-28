@@ -1,5 +1,6 @@
 package com.Spring.Cinetime.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
     @Entity
@@ -20,6 +21,7 @@ import jakarta.persistence.*;
         private String sinopse;
         private String anoLancamento;
         private String duracao;
+        private Integer numeroTemporadas;
         private String statusLista;
         private Long idExterno;
 
@@ -52,6 +54,9 @@ import jakarta.persistence.*;
 
         public String getDuracao() { return duracao; }
         public void setDuracao(String duracao) { this.duracao = duracao; }
+
+        public Integer getNumeroTemporadas() { return numeroTemporadas; }
+        public void setNumeroTemporadas(Integer numeroTemporadas) { this.numeroTemporadas = numeroTemporadas; }
 
         public String getStatusLista() { return statusLista;}
         public void setStatusLista(String statusLista) { this.statusLista = statusLista; }

@@ -10,30 +10,33 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/filmes")
-@CrossOrigin(origins = "*") // Permite que seu HTML acesse a API sem erros de CORS
+@CrossOrigin(origins = "*")
 public class FilmeController {
 
     @Autowired
     private FilmeService filmeService;
 
-    // Rota para buscar filmes: GET http://localhost:8080/api/filmes/pesquisar?nome=Matrix
     @GetMapping("/pesquisar")
     public ResponseEntity<List<Filme>> pesquisarFilmes(@RequestParam String nome) {
-        if (nome == null || nome.trim().isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        List<Filme> filmesEncontrados = filmeService.pesquisarFilmesExternos(nome);
-        return ResponseEntity.ok(filmesEncontrados);
+        List<Filme> filmes = filmeService.pesquisarFilmesExternos(nome);
+        return ResponseEntity.ok(filmes);
     }
-    // Rota para buscar os detalhes completos de um filme/série específico pelo ID do TMDB
-    // GET http://localhost:8080/api/filmes/detalhes/123?tipo=Filme
-    @GetMapping("/detalhes/{id}")
-    public ResponseEntity<Filme> obterDetalhes(@PathVariable Long id, @RequestParam String tipo) {
+
+    @GetMapping("/detalhes")
+    public ResponseEntity<Filme> obterDetalhes(@RequestParam Long id, @RequestParam String tipo) {
         Filme filme = filmeService.obterDetalhesExternos(id, tipo);
-        if (filme == null) {
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(filme);
+    }
+
+    @PostMapping("/salvar")
+    public ResponseEntity<?> salvarFilme(@RequestBody Filme filme) {
+        filmeService.salvarFilme(filme);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/minha-lista")
+    public ResponseEntity<List<Filme>> obterMinhaLista() {
+        List<Filme> filmes = filmeService.listarMinhaLista();
+        return ResponseEntity.ok(filmes);
     }
 }

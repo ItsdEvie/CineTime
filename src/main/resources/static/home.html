@@ -7,185 +7,123 @@
     <link rel="stylesheet" href="assets/css/root.css">
     <link rel="stylesheet" href="assets/css/home.css">
     <link rel="shortcut icon" href="assets/img/logo.webp" type="image/x-icon">
-    <title>CineTime</title>
+    <title>CineTime - Home</title>
 </head>
 
 <body>
-    <header>
+<header>
+    <div class="logo" style="cursor: pointer;" onclick="window.location.href='home.html'">
+        <img src="assets/img/logo.webp" alt="CineTime-logo">
+        <h1>Cine</h1>
+        <h1 class="roxo">Time</h1>
+    </div>
 
-        <div class="logo">
-            <img src="assets/img/logo.webp" alt="CineTime-logo">
-            <h1>Cine</h1>
-            <h1 class="roxo">Time</h1>
+    <div class="search-container" style="position: relative; flex: 1; max-width: 500px; margin: 0 20px;">
+        <input type="text" id="search" placeholder="Pesquise por filmes ou séries..."
+               style="width: 100%; padding: 12px 20px; background-color: var(--background-fundo); border: 2px solid #333; border-radius: 8px; color: white; font-size: 0.95rem; outline: none; transition: border-color 0.3s ease;">
+        <div id="search-suggestions" style="position: absolute; width: 100%; background: var(--header-fundo); border-radius: 8px; top: 55px; z-index: 100; display: none; box-shadow: 0 8px 166px rgba(0,0,0,0.5); overflow: hidden;"></div>
+    </div>
+
+    <div class="avatar-header" id="avatar-menu" onclick="window.location.href='user.html'" title="Ir para o Perfil"></div>
+</header>
+
+<main>
+    <section class="container-home">
+        <img src="assets/img/rolo-filme.png" alt="rolo de filme">
+        <div class="fundo">
+            <div class="fundo-blur"></div>
+            <h1>Transforme cada cena em um momento <br> compartilhado. A pipoca é por sua conta, <br> a conexão é por nossa.</h1>
         </div>
-        <nav class="nav-list">
-            <input type="search" name="search" id="search" placeholder="Pesquise um título...">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
-                viewBox="0 0 16 16">
-                <path
-                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-            </svg>
-        </nav>
-        <a href="user.html">
-
-            <img id="foto-home" src="" alt="Foto usuário" style="
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                object-fit: cover;
-                display: none;
-            "><svg id="icone-home" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                class="bi bi-person" viewBox="0 0 16 16">
-                <path
-                    d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-            </svg></a>
-    </header>
-    <main>
-        <secton class="container-home">
-            <img src="assets/img/rolo-filme.png" alt="rolo de filme">
-            <div class="fundo">
-                <div class="fundo-blur"></div>
-                <h1>Transforme cada cena em um momento <br> compartilhado. A pipoca é por sua conta, <br> a conexão é
-                    por nossa.
-            </div>
-            <img src="assets/img/undraw_home-cinema_jdm1.svg" alt="assistindo filme">
-        </secton>
-
-        <section class="room-create">
-            <a href="salaconfig.html">
-                <button id="public"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-play-circle-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z" />
-                    </svg>Criar Sala</button>
-            </a>
-            <a href="salas.html">
-                <button id="private"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-globe" viewBox="0 0 16 16">
-                        <path
-                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m7.5-6.923c-.67.204-1.335.82-1.887 1.855A8 8 0 0 0 5.145 4H7.5zM4.09 4a9.3 9.3 0 0 1 .64-1.539 7 7 0 0 1 .597-.933A7.03 7.03 0 0 0 2.255 4zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a7 7 0 0 0-.656 2.5zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5zM8.5 5v2.5h2.99a12.5 12.5 0 0 0-.337-2.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5zM5.145 12q.208.58.468 1.068c.552 1.035 1.218 1.65 1.887 1.855V12zm.182 2.472a7 7 0 0 1-.597-.933A9.3 9.3 0 0 1 4.09 12H2.255a7 7 0 0 0 3.072 2.472M3.82 11a13.7 13.7 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5zm6.853 3.472A7 7 0 0 0 13.745 12H11.91a9.3 9.3 0 0 1-.64 1.539 7 7 0 0 1-.597.933M8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855q.26-.487.468-1.068zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.7 13.7 0 0 1-.312 2.5m2.802-3.5a7 7 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7 7 0 0 0-3.072-2.472c.218.284.418.598.597.933M10.855 4a8 8 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4z" />
-                    </svg>
-                    <path fill-rule="evenodd" d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4M4.5 7A1.5 1.5 0 0 0 3 8.5v5A1.5 1.5 0 0 0 4.5 15h7a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 11.5 7zM8 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3" />
-                    </svg> Lista de Salas
-                </button>
-            </a>
-        </section>
-    </main>
-    <hr>
-    <section class="minha-lista">
-        <h1>Minha lista</h1>
-        <div class="movie-grid">
-            <div class="movie-card">
-                <div class="movie-thumb matrix">
-                    <span class="thumb-text">MATRIX</span>
-                </div>
-                <span class="movie-name">Matrix</span>
-            </div>
-            <div class="movie-card">
-                <div class="movie-thumb godfather">
-                    <div class="thumb-content">
-                        <i class="bi bi-person-fill"></i>
-                        <div class="gf-logo">
-                            <span>El</span>
-                            <span>Padrino</span>
-                        </div>
-                    </div>
-                </div>
-                <span class="movie-name">O Poderoso Chefão</span>
-            </div>
-            <div class="movie-card">
-                <div class="movie-thumb inception">
-                    <span class="thumb-text">INCEPTION</span>
-                </div>
-                <span class="movie-name">Inception</span>
-            </div>
-        </div>
+        <img src="assets/img/undraw_home-cinema_jdm1.svg" alt="assistindo filme">
     </section>
-        <script>
-            // 1. Manter sua lógica da foto de perfil
-            const foto = localStorage.getItem("fotoPerfil");
-            if (foto) {
-            const fotoHome = document.getElementById("foto-home");
-            const iconeHome = document.getElementById("icone-home");
-            fotoHome.src = foto;
-            fotoHome.style.display = "block";
-            iconeHome.style.display = "none";
-        }
 
-            // SISTEMA DE BUSCA DE FILMES DYNAMIC
-            const campoPesquisa = document.getElementById("search");
-            const caixaSugestoes = document.getElementById("search-suggestions");
+    <section class="room-create">
+        <a href="salaconfig.html"><button id="public">Criar Sala</button></a>
+        <a href="salas.html"><button id="private">Lista de Salas</button></a>
+    </section>
+</main>
 
-            // Dispara a cada letra digitada pelo usuário
-            campoPesquisa.addEventListener("input", async () => {
-                const termo = campoPesquisa.value.trim();
+<hr style="border: 1px solid #222; margin: 20px 0;">
 
-                // Se tiver menos de 2 letras, esconde a caixinha de sugestões
-                if (termo.length < 2) {
-                    caixaSugestoes.style.display = "none";
+<section style="padding: 30px 5%;">
+    <div>
+        <h2 style="color: white; font-size: 1.5rem; margin-bottom: 15px;">🍿 Minha Lista</h2>
+        <div id="lista-pessoal" style="display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none;">
+            <p style="color: #666; font-size: 0.95rem;">Carregando sua lista...</p>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        // Carregar Foto do Avatar
+        const fotoSalva = localStorage.getItem("fotoPerfil") || "assets/img/default-avatar.png";
+        const elementoAvatar = document.getElementById("avatar-menu");
+        if (elementoAvatar) elementoAvatar.style.backgroundImage = `url('${fotoSalva}')`;
+
+        // FETCH ÚNICO DA MINHA LISTA
+        fetch("http://localhost:8080/api/filmes/minha-lista")
+            .then(res => res.json())
+            .then(dados => {
+                const container = document.getElementById("lista-pessoal");
+                if (dados.length === 0) {
+                    container.innerHTML = "<p style='color:#666; font-size:0.95rem;'>Sua lista está vazia por enquanto.</p>";
                     return;
                 }
+                container.innerHTML = "";
+                dados.forEach(filme => {
+                    const urlImagem = (filme.imagemUrl && !filme.imagemUrl.includes("null")) ? filme.imagemUrl : "assets/img/rolo-filme.png";
+                    container.innerHTML += `
+                            <div style="min-width: 260px; max-width: 260px; height: 150px; border-radius: 8px; overflow: hidden; position: relative; cursor: pointer; transition: transform 0.2s;"
+                                 onclick="window.location.href='detalhes.html?id=${filme.idExterno}&tipo=${encodeURIComponent(filme.genero)}'"
+                                 onmouseenter="this.style.transform='scale(1.03)'" onmouseleave="this.style.transform='scale(1)'">
+                                <div style="background-image: url('${urlImagem}'); background-size: cover; background-position: center; width: 100%; height: 100%;"></div>
+                                <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 80%);"></div>
+                                <div style="position: absolute; bottom: 10px; left: 12px; right: 12px; color: white;">
+                                    <h3 style="font-size: 1rem; font-weight: bold; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${filme.titulo}</h3>
+                                </div>
+                            </div>
+                        `;
+                });
+            }).catch(err => console.error(err));
 
-                try {
-                    // Busca as sugestões no seu Java
-                    const resposta = await fetch(`http://localhost:8080/api/filmes/pesquisar?nome=${encodeURIComponent(termo)}`);
-                    if (!resposta.ok) throw new Error();
+        // AUTOCOMPLETE DA BARRA DE PESQUISA
+        const campoPesquisa = document.getElementById("search");
+        const caixaSugestoes = document.getElementById("search-suggestions");
 
-                    const filmes = await resposta.json();
+        campoPesquisa.addEventListener("input", async () => {
+            const termo = campoPesquisa.value.trim();
+            if (termo.length < 2) { caixaSugestoes.style.display = "none"; return; }
+            try {
+                const resposta = await fetch(`http://localhost:8080/api/filmes/pesquisar?nome=${encodeURIComponent(termo)}`);
+                const filmes = await resposta.json();
+                if (filmes.length === 0) { caixaSugestoes.style.display = "none"; return; }
+                caixaSugestoes.innerHTML = "";
+                caixaSugestoes.style.display = "block";
+                filmes.slice(0, 5).forEach(filme => {
+                    const item = document.createElement("div");
+                    item.style = "padding: 10px; cursor: pointer; color: white; border-bottom: 1px solid #222; font-size: 14px;";
+                    item.textContent = filme.titulo;
+                    item.addEventListener("click", () => { window.location.href = `pesquisa.html?busca=${encodeURIComponent(filme.titulo)}`; });
+                    item.onmouseenter = () => item.style.background = "var(--primary-color, #6200ee)";
+                    item.onmouseleave = () => item.style.background = "transparent";
+                    caixaSugestoes.appendChild(item);
+                });
+            } catch (e) { console.error(e); }
+        });
 
-                    if (filmes.length === 0) {
-                        caixaSugestoes.style.display = "none";
-                        return;
-                    }
+        campoPesquisa.addEventListener("keypress", (evento) => {
+            if (evento.key === "Enter") {
+                const termo = campoPesquisa.value.trim();
+                if (termo !== "") window.location.href = `pesquisa.html?busca=${encodeURIComponent(termo)}`;
+            }
+        });
 
-                    // Limpa e reconstrói as sugestões flutuantes
-                    caixaSugestoes.innerHTML = "";
-                    caixaSugestoes.style.display = "block";
-
-                    // Exibe no máximo as 5 primeiras sugestões
-                    filmes.slice(0, 5).forEach(filme => {
-                        const item = document.createElement("div");
-                        item.style.padding = "10px";
-                        item.style.cursor = "pointer";
-                        item.style.color = "white";
-                        item.style.borderBottom = "1px solid #222";
-                        item.style.fontSize = "14px";
-                        item.textContent = filme.titulo; // Usando o .titulo que vem do seu Java!
-
-                        // Quando clica na sugestão, vai para a página de salas levando o nome do filme
-                        item.addEventListener("click", () => {
-                            window.location.href = `pesquisa.html?busca=${encodeURIComponent(filme.titulo)}`;
-                        });
-
-                        // Efeitinho de cor ao passar o mouse
-                        item.onmouseenter = () => item.style.background = "var(--roxo)";
-                        item.onmouseleave = () => item.style.background = "transparent";
-
-                        caixaSugestoes.appendChild(item);
-                    });
-
-                } catch (erro) {
-                    console.error("Erro ao buscar sugestões:", erro);
-                }
-            });
-
-            // Se o usuário apertar ENTER na barra, também leva para a nova tela
-            campoPesquisa.addEventListener("keypress", (evento) => {
-                if (evento.key === "Enter") {
-                    const termo = campoPesquisa.value.trim();
-                    if (termo !== "") {
-                        window.location.href = `pesquisa.html?busca=${encodeURIComponent(termo)}`;
-                    }
-                }
-            });
-
-            // Fecha as sugestões se o usuário clicar em qualquer outro lugar da tela
-            document.addEventListener("click", (e) => {
-                if (e.target !== campoPesquisa && e.target !== caixaSugestoes) {
-                    caixaSugestoes.style.display = "none";
-                }
-            });
-    </script>
+        document.addEventListener("click", (e) => {
+            if (e.target !== campoPesquisa && e.target !== caixaSugestoes) caixaSugestoes.style.display = "none";
+        });
+    });
+</script>
 </body>
-
 </html>

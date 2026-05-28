@@ -1,9 +1,9 @@
 package com.Spring.Cinetime.Dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TmdbResultDTO {
-
     private Long id;
     private String title; // Nome - filmes
     private String name;  // Nome - séries
@@ -20,6 +20,10 @@ public class TmdbResultDTO {
 
     @JsonProperty("runtime")
     private Integer duracaoMinutos;
+
+    @JsonProperty("number_of_seasons")
+    private Integer numeroTemporadas;
+
 
     //getter e setter
     public Long getId() { return id; }
@@ -45,4 +49,7 @@ public class TmdbResultDTO {
 
     public Integer getDuracaoMinutos() { return duracaoMinutos; }
     public void setDuracaoMinutos(Integer duracaoMinutos) { this.duracaoMinutos = duracaoMinutos; }
+
+    public Integer getNumeroTemporadas() { return numeroTemporadas; }
+    public void setNumeroTemporadas(Integer numeroTemporadas) { this.numeroTemporadas = numeroTemporadas; }
 }

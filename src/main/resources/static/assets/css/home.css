@@ -1,3 +1,6 @@
+/* ==========================================
+   CONFIGURAÇÕES GERAIS
+   ========================================== */
 * {
     margin: 0;
     padding: 0;
@@ -10,12 +13,16 @@ body {
     background-color: var(--background-fundo);
 }
 
+/* ==========================================
+   HEADER PADRONIZADO (COM FOTO DO AVATAR)
+   ========================================== */
 header {
-    height: 15vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 15px 5% !important;
     background-color: var(--header-fundo);
+    height: 12vh;
 }
 
 header img {
@@ -40,25 +47,31 @@ header a {
     color: var(--font-color1);
 }
 
-nav {
-    display: flex;
-    align-items: center;
+/* Brilho roxo ao clicar na barra de pesquisa */
+#search:focus {
+    border-color: var(--primary-color) !important;
 }
 
-input {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid var(--font-color1);
-    padding: 5px;
-    color: var(--font-color1);
-    width: 20em;
+/* Elemento do Avatar Redondo do Usuário */
+.avatar-header {
+    width: 45px !important;
+    height: 45px !important;
+    border-radius: 50% !important;
+    border: 2px solid var(--primary-color) !important;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    background-size: cover !important;
+    background-position: center !important;
 }
 
-nav svg {
-    color: var(--font-color1);
+.avatar-header:hover {
+    transform: scale(1.05);
+    border-color: #ffffff !important;
 }
 
+/* ==========================================
+   CONTEÚDO PRINCIPAL (BANNER DA HOME)
+   ========================================== */
 main {
     height: 85vh;
     display: flex;
@@ -90,7 +103,6 @@ main h1 {
     font-weight: bold;
     font-size: 32px;
     text-align: center;
-
 }
 
 .container-home {
@@ -105,6 +117,9 @@ main h1 {
     width: 20em;
 }
 
+/* ==========================================
+   BOTÕES DE CRIAR/ENTRAR EM SALAS
+   ========================================== */
 .room-create {
     display: flex;
     gap: 5em;
@@ -114,7 +129,7 @@ main h1 {
     text-decoration: none;
 }
 
-.room-create button{
+.room-create button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -128,8 +143,6 @@ main h1 {
     color: var(--font-color1);
     cursor: pointer;
 }
-
-
 
 #public {
     background-color: var(--primary-color);
@@ -149,176 +162,3 @@ main h1 {
 #private:hover {
     background-color: #4800ac31;
 }
-
-.descobrir-salas {
-    padding: 4em;
-}
-
-.descobrir-salas h1 {
-    text-align: center;
-    color: var(--font-color1);
-}
-
-.salas {
-    display: grid;
-    grid-template-columns:  repeat(3, 1fr);
-    grid-auto-rows: minmax(100px, auto);
-}
-
-.sala {
-    background-color: black;
-    width: 25em;
-    height: 10em;
-    margin-top: 5em;
-    padding: 10px;
-    display: flex;
-    gap: 10px;
-}
-
-.capa {
-    height: 100%;
-    width: 12em;
-    background-color: var(--font-color1);
-}
-
-.info h1 {
-    font-size: 24px;
-}
-
-.info {
-    color: var(--font-color1);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.minha-lista {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    gap: 5em;
-}
-
-.minha-lista h1 {
-    color: var(--font-color1);
-    margin-top: 2em;
-}
-
-.movie-grid {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-}
-
-.movie-card {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    width: 300px;
-    align-items: center;
-}
-
-.movie-thumb {
-    width: 400px;
-    height: 200px;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #1a1a2e;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.movie-thumb.matrix {
-    background: linear-gradient(135deg, #0a0a0a 0%, #001a00 100%);
-}
-
-.movie-thumb.matrix::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(0deg,
-            transparent,
-            transparent 4px,
-            rgba(0, 255, 0, 0.04) 4px,
-            rgba(0, 255, 0, 0.04) 5px);
-}
-
-.movie-thumb.matrix .thumb-text {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 22px;
-    font-weight: 900;
-    letter-spacing: 4px;
-    color: #00cc44;
-    text-shadow: 0 0 10px #00cc44, 0 0 20px #00cc44;
-    z-index: 1;
-}
-
-.movie-thumb.godfather {
-    background: linear-gradient(135deg, #0d0d0d 0%, #1a0a00 100%);
-}
-
-.movie-thumb.godfather .thumb-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    z-index: 1;
-}
-
-.movie-thumb.godfather .thumb-content i {
-    font-size: 36px;
-    color: #c8a96e;
-}
-
-.movie-thumb.godfather .thumb-content .gf-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 1.1;
-}
-
-.movie-thumb.godfather .thumb-content .gf-logo span:first-child {
-    font-size: 9px;
-    color: #c8a96e;
-    letter-spacing: 1px;
-    font-style: italic;
-}
-
-.movie-thumb.godfather .thumb-content .gf-logo span:last-child {
-    font-size: 13px;
-    font-weight: 700;
-    color: #c8a96e;
-    font-style: italic;
-}
-
-.movie-thumb.inception {
-    background: linear-gradient(135deg, #050510 0%, #0a0a2a 50%, #1a0a0a 100%);
-}
-
-.movie-thumb.inception .thumb-text {
-    font-size: 14px;
-    font-weight: 900;
-    letter-spacing: 6px;
-    color: #e8c84a;
-    text-shadow: 0 0 8px #e8c84a;
-    z-index: 1;
-}
-
-.movie-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.movie-name {
-    font-size: 24px;
-    font-weight: 500;
-    color: var(--font-color1);
-}   
-
