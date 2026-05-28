@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/root.css">
+    <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="assets/css/pesquisa.css">
+
+    <link rel="shortcut icon" href="assets/img/logo.webp" type="image/x-icon">
+    <title>CineTime - Resultados</title>
+
+</head>
+
+<body>
+<header>
+    <div class="logo" style="cursor: pointer;" onclick="window.location.href='home.html'">
+        <img src="assets/img/logo.webp" alt="CineTime-logo">
+        <h1>Cine</h1>
+        <h1 class="roxo">Time</h1>
+    </div>
+
+    <div class="search-container" style="position: relative; flex: 1; max-width: 500px; margin: 0 20px;">
+        <input type="text" id="search" placeholder="Pesquise por filmes ou séries..."
+               style="width: 100%; padding: 12px 20px;
+               background-color: var(--background-fundo);
+               border: 2px solid #333; border-radius: 8px;
+               color: white;
+               font-size: 0.95rem;
+               outline: none;
+               transition: border-color 0.3s ease;">
+        <div id="search-suggestions" style="position: absolute; width: 100%; background: var(--header-fundo); border-radius: 8px; top: 55px; z-index: 100; display: none; box-shadow: 0 8px 16px rgba(0,0,0,0.5); overflow: hidden;"></div>
+    </div>
+
+    <div class="avatar-header" id="avatar-menu" onclick="window.location.href='user.html'" title="Ir para o Perfil"></div>
+</header>
+
+<main>
+    <h1 id="titulo-pesquisa">Buscando filmes...</h1>
+    <div class="grade-filmes-pesquisa" id="grid-resultados">
+    </div>
+</main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        // 1. Pega o termo que veio na URL (ex: ?busca=crepusculo)
+        const parametrosUrl = new URLSearchParams(window.location.search);
+        const termoBusca = parametrosUrl.get("busca");
+
+        const tituloPesquisa = document.getElementById("titulo-pesquisa");
+        const gridResultados = document.getElementById("grid-resultados");
+
+        if (!termoBusca) {
+            tituloPesquisa.textContent = "Nenhum termo pesquisado.";
+            return;
+        }
+        
+        const campoPesquisaTopo = document.getElementById("search");
+
+        // Deixa a barrinha do topo já preenchida com o que o usuário buscou
+        if (termoBusca) {
+            campoPesquisaTopo.value = termoBusca;
+        }
+
+        // Escuta o teclado: se apertar ENTER, dispara a nova busca!
+        campoPesquisaTopo.addEventListener("keypress", (evento) => {
+            if (evento.key === "Enter") {
+                const novoTermo = campoPesquisaTopo.value.trim();
+                if (novoTermo !== "") {
+                    // Recarrega a própria página passando o novo filme na URL
+                    window.location.href = `pesquisa.html?busca=${encodeURIComponent(novoTermo)}`;
+                }
+            }
+        });
+
+        // Atualiza o título da página
+        tituloPesquisa.textContent = `Resultados para: "${termoBusca}"`;
+
+        try {
+            // 2. Faz a chamada para a sua API Java
+            const resposta = await fetch(`http://localhost:8080/api/filmes/pesquisar?nome=${encodeURIComponent(termoBusca)}`);
+            if (!resposta.ok) throw new Error();
+
+            const filmes = await resposta.json();
+
+            if (filmes.length === 0) {
+                gridResultados.innerHTML = `<div class="mensagem-pesquisa">Nenhum filme encontrado para "${termoBusca}". Tente outro título!</div>`;
+                return;
+            }
+
+            // 3. Limpa a tela e desenha os cards usando as NOVAS classes CSS exclusivas
+            gridResultados.innerHTML = "";
+            filmes.forEach(filme => {
+                // Garante uma imagem padrão caso venha sem pôster
+                const urlImagem = (filme.imagemUrl && !filme.imagemUrl.includes("null")) ? filme.imagemUrl : "assets/img/rolo-filme.png";
+
+                // MUDANÇA CRUCIAL: Trocamos o 'selecionarFilme' pelo redirecionamento passando o ID e o Tipo na URL
+                gridResultados.innerHTML += `
+        <div class="card-filme-pesquisa" onclick="window.location.href='detalhes.html?id=${filme.idExterno}&tipo=${encodeURIComponent(filme.genero)}'">
+            <div class="poster-filme-pesquisa" style="background-image: url('${urlImagem}');"></div>
+            <span class="titulo-filme-pesquisa">${filme.titulo}</span>
+        </div>
+    `;
+            });
+
+        } catch (erro) {
+            console.error("Erro na página de pesquisa:", erro);
+            gridResultados.innerHTML = `<div class="mensagem-pesquisa" style="color: red;">Erro ao carregar os filmes do servidor. Verifique o console do Java.</div>`;
+        }
+    });
+
+    // Função para quando clicar em um filme (para o próximo passo de adicionar à lista)
+    function selecionarFilme(titulo) {
+        alert(`Você selecionou: ${titulo}. O próximo passo é salvar isso na sua lista de favoritos!`);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 15px 5% !important;
+    background-color: var(--header-fundo);
+}
+
+.avatar-header {
+    width: 45px !important;
+    height: 45px !important;
+    border-radius: 50% !important;
+    border: 2px solid var(--primary-color) !important;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    background-size: cover;
+    background-position: center;
+}
+
+.avatar-header:hover {
+    transform: scale(1.05);
+    border-color: #ffffff !important;
+}
+
+/* Efeito de foco na barra de pesquisa central */
+#search:focus {
+    border-color: var(--primary-color) !important;
+}
+
+/* Container que segura todos os resultados */
+#grid-resultados, .grade-filmes-pesquisa {
+    display: grid !important;
+    /* Diminuímos de 200px para 160px. Agora cabe 5 na sua tela, mas continua responsivo se a tela encolher! */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+    gap: 25px !important; /* Espaçamento ideal para esse tamanho de card */
+    padding: 20px 0 !important;
+    width: 100% !important;
+    margin-top: 20px !important;
+}
+
+/* O card de cada filme/série */
+.card-filme-pesquisa {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    cursor: pointer;
+    transition: transform 0.3s ease !important;
+}
+
+.card-filme-pesquisa:hover {
+    transform: scale(1.05) !important;
+}
+
+/* O pôster (imagem) */
+.poster-filme-pesquisa {
+    width: 100% !important;
+    height: 250px !important; /* Altura ajustada para combinar com a largura menor e manter a proporção de cinema */
+    background-size: cover !important;
+    background-position: center !important;
+    border-radius: 10px !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5) !important;
+    margin-bottom: 12px !important;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.card-filme-pesquisa:hover .poster-filme-pesquisa {
+    border-color: var(--primary-color);
+}
+
+/* O texto do título embaixo da imagem */
+.titulo-filme-pesquisa {
+    color: var(--font-color1) !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important; /* Letra ligeiramente menor para encaixar melhor nos cards compactos */
+    text-align: center !important;
+    margin-top: 5px;
+}
+
+/* Container principal da página */
+main {
+    padding: 40px 5% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+}
+
+#titulo-pesquisa {
+    color: var(--font-color1);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}

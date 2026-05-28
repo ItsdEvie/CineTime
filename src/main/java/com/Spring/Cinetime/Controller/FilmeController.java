@@ -26,4 +26,14 @@ public class FilmeController {
         List<Filme> filmesEncontrados = filmeService.pesquisarFilmesExternos(nome);
         return ResponseEntity.ok(filmesEncontrados);
     }
+    // Rota para buscar os detalhes completos de um filme/série específico pelo ID do TMDB
+    // GET http://localhost:8080/api/filmes/detalhes/123?tipo=Filme
+    @GetMapping("/detalhes/{id}")
+    public ResponseEntity<Filme> obterDetalhes(@PathVariable Long id, @RequestParam String tipo) {
+        Filme filme = filmeService.obterDetalhesExternos(id, tipo);
+        if (filme == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(filme);
+    }
 }

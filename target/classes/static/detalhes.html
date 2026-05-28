@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/root.css">
+    <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="assets/css/detalhes.css">
+
+    <link rel="shortcut icon" href="assets/img/logo.webp" type="image/x-icon">
+    <title>CineTime - Detalhes</title>
+
+</head>
+<body>
+
+<header>
+    <div class="logo" style="cursor: pointer;" onclick="window.location.href='home.html'">
+        <img src="assets/img/logo.webp" alt="CineTime-logo">
+        <h1>Cine</h1>
+        <h1 class="roxo">Time</h1>
+    </div>
+
+    <div class="avatar-header" id="avatar-menu" onclick="window.location.href='user.html'" title="Ir para o Perfil"></div>
+</header>
+
+<main>
+    <div class="area-poster">
+        <div class="poster-gigante" id="filme-poster"></div>
+    </div>
+
+    <div class="area-info">
+        <h1 id="filme-titulo">Carregando...</h1>
+        <div class="metadados">
+            <span class="tag-tipo" id="filme-tipo">-</span>
+            <span id="filme-ano">-</span>
+            <span id="filme-duracao">-</span>
+        </div>
+
+        <div class="sinopse-titulo">Sinopse</div>
+        <p class="sinopse-texto" id="filme-sinopse">Carregando detalhes do filme...</p>
+
+        <div class="botoes-lista">
+            <button class="btn-lista" onclick="salvarNasListas('QUERO_ASSISTIR')">🍿 Quero Assistir</button>
+            <button class="btn-lista" onclick="salvarNasListas('ASSISTIDO')">✅ Já Assistido</button>
+            <button class="btn-lista btn-favorito" onclick="salvarNasListas('FAVORITO')">❤️ Favorito</button>
+        </div>
+    </div>
+</main>
+
+<script>
+    let filmeAtual = null;
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        // ==========================================
+        // CARREGA A FOTO DO AVATAR NO HEADER
+        // ==========================================
+        const fotoSalva = localStorage.getItem('fotoPerfil') || 'assets/img/default-avatar.png';
+        const elementoAvatar = document.getElementById('avatar-menu');
+        if (elementoAvatar) {
+            elementoAvatar.style.backgroundImage = `url('${fotoSalva}')`;
+        }
+
+        // Carrega os dados da URL e busca no Back-end
+        const parametrosUrl = new URLSearchParams(window.location.search);
+        const idFilme = parametrosUrl.get("id");
+        const tipoFilme = parametrosUrl.get("tipo");
+
+        if (!idFilme || !tipoFilme) {
+            alert("Filme não encontrado.");
+            window.location.href = "home.html";
+            return;
+        }
+
+        try {
+            const resposta = await fetch(`http://localhost:8080/api/filmes/detalhes/${idFilme}?tipo=${encodeURIComponent(tipoFilme)}`);
+            if (!resposta.ok) throw new Error();
+
+            filmeAtual = await resposta.json();
+
+            document.getElementById("filme-titulo").textContent = filmeAtual.titulo;
+            document.getElementById("filme-tipo").textContent = filmeAtual.genero;
+            document.getElementById("filme-ano").textContent = filmeAtual.anoLancamento;
+            document.getElementById("filme-duracao").textContent = filmeAtual.duracao;
+            document.getElementById("filme-sinopse").textContent = filmeAtual.sinopse || "Nenhuma sinopse disponível em português.";
+
+            const urlImagem = (filmeAtual.imagemUrl && !filmeAtual.imagemUrl.includes("null")) ? filmeAtual.imagemUrl : "assets/img/rolo-filme.png";
+            document.getElementById("filme-poster").style.backgroundImage = `url('${urlImagem}')`;
+
+        } catch (erro) {
+            console.error("Erro ao carregar os detalhes:", erro);
+            document.getElementById("filme-sinopse").textContent = "Erro ao carregar as informações deste título.";
+        }
+    });
+
+    async function salvarNasListas(statusEscolhido) {
+        if (!filmeAtual) return;
+
+        const payload = {
+            titulo: filmeAtual.titulo,
+            imagemUrl: filmeAtual.imagemUrl,
+            genero: filmeAtual.genero,
+            sinopse: filmeAtual.sinopse,
+            anoLancamento: filmeAtual.anoLancamento,
+            duracao: filmeAtual.duracao,
+            idExterno: filmeAtual.idExterno,
+            statusLista: statusEscolhido
+        };
+
+        try {
+            const resposta = await fetch("http://localhost:8080/api/filmes/salvar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (resposta.ok) {
+                alert(`Salvo na sua lista de [${statusEscolhido}] com sucesso! 🎬`);
+            } else {
+                alert("Erro ao salvar nas suas listas.");
+            }
+        } catch (erro) {
+            console.error("Erro ao fazer POST:", erro);
+        }
+    }
+</script>
+</body>
+</html>

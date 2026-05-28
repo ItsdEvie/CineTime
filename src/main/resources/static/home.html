@@ -12,6 +12,7 @@
 
 <body>
     <header>
+
         <div class="logo">
             <img src="assets/img/logo.webp" alt="CineTime-logo">
             <h1>Cine</h1>
@@ -49,6 +50,7 @@
             </div>
             <img src="assets/img/undraw_home-cinema_jdm1.svg" alt="assistindo filme">
         </secton>
+
         <section class="room-create">
             <a href="salaconfig.html">
                 <button id="public"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -99,22 +101,90 @@
             </div>
         </div>
     </section>
-    <script>
-
-        const foto = localStorage.getItem("fotoPerfil");
-
-        if (foto) {
-
+        <script>
+            // 1. Manter sua lógica da foto de perfil
+            const foto = localStorage.getItem("fotoPerfil");
+            if (foto) {
             const fotoHome = document.getElementById("foto-home");
             const iconeHome = document.getElementById("icone-home");
-
             fotoHome.src = foto;
             fotoHome.style.display = "block";
-
             iconeHome.style.display = "none";
-
         }
 
+            // SISTEMA DE BUSCA DE FILMES DYNAMIC
+            const campoPesquisa = document.getElementById("search");
+            const caixaSugestoes = document.getElementById("search-suggestions");
+
+            // Dispara a cada letra digitada pelo usuário
+            campoPesquisa.addEventListener("input", async () => {
+                const termo = campoPesquisa.value.trim();
+
+                // Se tiver menos de 2 letras, esconde a caixinha de sugestões
+                if (termo.length < 2) {
+                    caixaSugestoes.style.display = "none";
+                    return;
+                }
+
+                try {
+                    // Busca as sugestões no seu Java
+                    const resposta = await fetch(`http://localhost:8080/api/filmes/pesquisar?nome=${encodeURIComponent(termo)}`);
+                    if (!resposta.ok) throw new Error();
+
+                    const filmes = await resposta.json();
+
+                    if (filmes.length === 0) {
+                        caixaSugestoes.style.display = "none";
+                        return;
+                    }
+
+                    // Limpa e reconstrói as sugestões flutuantes
+                    caixaSugestoes.innerHTML = "";
+                    caixaSugestoes.style.display = "block";
+
+                    // Exibe no máximo as 5 primeiras sugestões
+                    filmes.slice(0, 5).forEach(filme => {
+                        const item = document.createElement("div");
+                        item.style.padding = "10px";
+                        item.style.cursor = "pointer";
+                        item.style.color = "white";
+                        item.style.borderBottom = "1px solid #222";
+                        item.style.fontSize = "14px";
+                        item.textContent = filme.titulo; // Usando o .titulo que vem do seu Java!
+
+                        // Quando clica na sugestão, vai para a página de salas levando o nome do filme
+                        item.addEventListener("click", () => {
+                            window.location.href = `pesquisa.html?busca=${encodeURIComponent(filme.titulo)}`;
+                        });
+
+                        // Efeitinho de cor ao passar o mouse
+                        item.onmouseenter = () => item.style.background = "var(--roxo)";
+                        item.onmouseleave = () => item.style.background = "transparent";
+
+                        caixaSugestoes.appendChild(item);
+                    });
+
+                } catch (erro) {
+                    console.error("Erro ao buscar sugestões:", erro);
+                }
+            });
+
+            // Se o usuário apertar ENTER na barra, também leva para a nova tela
+            campoPesquisa.addEventListener("keypress", (evento) => {
+                if (evento.key === "Enter") {
+                    const termo = campoPesquisa.value.trim();
+                    if (termo !== "") {
+                        window.location.href = `pesquisa.html?busca=${encodeURIComponent(termo)}`;
+                    }
+                }
+            });
+
+            // Fecha as sugestões se o usuário clicar em qualquer outro lugar da tela
+            document.addEventListener("click", (e) => {
+                if (e.target !== campoPesquisa && e.target !== caixaSugestoes) {
+                    caixaSugestoes.style.display = "none";
+                }
+            });
     </script>
 </body>
 
