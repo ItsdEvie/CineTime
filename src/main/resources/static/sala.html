@@ -5,409 +5,354 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineTime</title>
-
-    <link rel="stylesheet" href="/assets/css/root.css">
-    <link rel="stylesheet" href="/assets/css/sala.css">
-    <link rel="shortcut icon" href="/assets/img/logo.webp" type="image/x-icon">
-
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/root.css">
+    <link rel="stylesheet" href="assets/css/sala.css">
+    <link rel="shortcut icon" href="assets/img/logo.webp" type="image/x-icon">
+
 </head>
 
 <body>
-    <div class="shell">
-        <aside class="barra-lateral" id="barraLateral">
-            <div class="sidebar-header">
-                <h2>LISTA</h2>
-                <div class="search-wrap">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                        <circle cx="11" cy="11" r="8" />
-                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                    </svg>
-                    <input type="text" id="campoBusca" placeholder="Buscar filme...">
-                </div>
-            </div>
-
-            <div class="lista-filmes" id="listaFilmes"></div>
-
-        </aside>
-
-        <div class="main">
-            <header class="barra-topo">
-                <div class="topbar-left">
-                    <button class="icon-btn on" id="btnLista" title="Lista">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                            <line x1="3" y1="6" x2="21" y2="6" />
-                            <line x1="3" y1="12" x2="21" y2="12" />
-                            <line x1="3" y1="18" x2="21" y2="18" />
-                        </svg>
-                    </button>
-
-                    <a href="/home.html">
-                        <button class="icon-btn" title="Início">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                                <polyline points="9 22 9 12 15 12 15 22" />
-                            </svg>
-                        </button>
-                    </a>
-                </div>
-
-                <div class="topbar-center">
-                    <span class="brand">CINE</span>
-                </div>
-
-                <div class="topbar-right">
-                    <button class="icon-btn" id="btnSalas" title="Salas">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                            <circle cx="9" cy="7" r="4" />
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                        </svg>
-                    </button>
-                </div>
-            </header>
-
-            <div class="area-player">
-                <div class="video-wrapper" id="containerVideo">
-                    <div id="playerYoutube"></div>
-                    <div id="camadaClique"></div>
-                    <div class="empty-state" id="telaVazia">
-                        <svg width="64" height="64" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
-                            <rect x="4" y="10" width="40" height="28" rx="4" />
-                            <path d="M4 18h40M4 30h40M16 10v8M32 10v8M16 30v8M32 30v8" />
-                        </svg>
-                        <p>Selecione um vídeo para começar</p>
-                    </div>
-                </div>
-
-                <div class="controles">
-                    <div class="prog-row">
-                        <div class="prog-track">
-                            <div class="prog-fill" id="barraProgresso"></div>
-                            <input type="range" id="barraTempo" min="0" max="1000" value="0" step="1">
-                        </div>
-
-                        <div class="time-txt" id="textoTempo">0:00 / 0:00</div>
-                    </div>
-
-                    <div class="ctrl-row">
-                        <button class="ctrl-btn" id="btnVoltar" title="Voltar 10 segundos">
-                            ⏪
-                        </button>
-                        <button class="ctrl-btn big" id="btnPlay" title="Play / Pause">
-
-                            <svg id="iconePlay" width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-                                <polygon points="5 3 19 12 5 21 5 3" />
-                            </svg>
-                            <svg id="iconePause" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" style="display:none">
-                                <rect x="6" y="4" width="4" height="16" />
-                                <rect x="14" y="4" width="4" height="16" />
-                            </svg>
-                        </button>
-                        <button class="ctrl-btn" id="btnAvancar" title="Avançar 10 segundos">
-                            ⏩
-                        </button>
-                        <div class="spacer"></div>
-                        <div class="now-lbl" id="tituloAtual"></div>
-                        <div class="spacer"></div>
-                        <div class="vol-row">
-                            <button class="ctrl-btn" id="btnVolume" title="Volume">
-                                <svg id="iconeVolume" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
-                                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                                </svg>
-
-                                <svg id="iconeMute" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                                    <line x1="23" y1="9" x2="17" y2="15" />
-                                    <line x1="17" y1="9" x2="23" y2="15" />
-                                </svg>
-                            </button>
-
-                            <input type="range" id="barraVolume" min="0" max="100" value="80" step="1">
-                        </div>
-
-                        <button class="ctrl-btn" id="btnTelaCheia" title="Tela cheia">
-                            ⛶
-                        </button>
-                    </div>
-                </div>
-                <p class="yt-note">▶ Clique em um vídeo da lista para assistir</p>
+<div class="shell">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>LISTA</h2>
+            <div class="search-wrap">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input type="text" id="searchInput" placeholder="Buscar...">
             </div>
         </div>
+        <div class="movie-list" id="movieList"></div>
+    </aside>
+    <div class="main">
+
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="icon-btn on" id="toggleBtn" title="Lista">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round">
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <line x1="3" y1="12" x2="21" y2="12" />
+                        <line x1="3" y1="18" x2="21" y2="18" />
+                    </svg>
+                </button>
+                <a href="/src/main/resources/templates/home.html">
+                    <button class="icon-btn" title="Início">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                            <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                    </button>
+                </a>
+            </div>
+            <div class="topbar-center"><span class="brand">CINE</span></div>
+            <div class="topbar-right">
+                <button class="icon-btn" id="salasBtn" title="Salas">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <div class="player-area">
+
+            <div class="video-wrapper" id="videoWrapper">
+                <div id="ytPlayer"></div>
+                <div id="clickLayer"></div>
+                <div class="empty-state" id="emptyState">
+                    <svg width="64" height="64" viewBox="0 0 48 48" fill="none" stroke="currentColor"
+                         stroke-width="1.4" stroke-linecap="round">
+                        <rect x="4" y="10" width="40" height="28" rx="4" />
+                        <path d="M4 18h40M4 30h40M16 10v8M32 10v8M16 30v8M32 30v8" />
+                    </svg>
+                    <p>Selecione um vídeo para começar</p>
+                </div>
+            </div>
+
+            <div class="controls-wrap">
+                <div class="prog-row">
+                    <div class="prog-track" id="progTrack">
+                        <div class="prog-fill" id="progFill"></div>
+                        <input type="range" id="seekBar" min="0" max="1000" value="0" step="1">
+                    </div>
+                    <div class="time-txt" id="timeTxt">0:00 / 0:00</div>
+                </div>
+
+                <div class="ctrl-row">
+                    <button class="ctrl-btn" id="btnRew" title="Voltar 10s">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="1 4 1 10 7 10" />
+                            <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
+                        </svg>
+                    </button>
+
+                    <button class="ctrl-btn big" id="btnPlay" title="Play / Pause">
+                        <svg id="icoPlay" width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                        <svg id="icoPause" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"
+                             style="display:none">
+                            <rect x="6" y="4" width="4" height="16" />
+                            <rect x="14" y="4" width="4" height="16" />
+                        </svg>
+                    </button>
+
+                    <button class="ctrl-btn" id="btnFwd" title="Avançar 10s">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 4 23 10 17 10" />
+                            <path d="M20.49 15a9 9 0 1 1-.49-3.5" />
+                        </svg>
+                    </button>
+
+                    <div class="spacer"></div>
+
+                    <div class="now-lbl" id="nowLbl"></div>
+
+                    <div class="spacer"></div>
+
+                    <div class="vol-row">
+                        <button class="ctrl-btn" id="btnVol" title="Volume">
+                            <svg id="icoVol" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                            </svg>
+                            <svg id="icoMute" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" style="display:none">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                                <line x1="23" y1="9" x2="17" y2="15" />
+                                <line x1="17" y1="9" x2="23" y2="15" />
+                            </svg>
+                        </button>
+                        <input type="range" id="volBar" min="0" max="100" value="80" step="1">
+                    </div>
+
+                    <button class="ctrl-btn" id="btnFs" title="Tela cheia">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round">
+                            <path
+                                    d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <p class="yt-note">▶ Clique num vídeo da lista para assistir · Os controles abaixo gerenciam o YouTube
+                Player</p>
+
+        </div>
     </div>
+</div>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
 
-    <script>
-        const filmes = [
-            { id: 'i8Kx2eDnYLs', titulo: 'Superhero Movie', genero: 'Comédia' },
-            { id: 'OsMhXertdTU', titulo: 'Arrebentando na Prisão', genero: 'Comédia' },
-            { id: 'y5EcrFwj8yQ', titulo: 'Tropa de Elite', genero: 'Ação' },
-            { id: 'Xs3ss61iyQs', titulo: 'João e Maria Caçadores de Bruxas', genero: 'Terror/Ação' }
-        ];
 
-        let player = null;
-        let youtubePronto = false;
-        let filmeAtual = null;
-        let videoPendente = null;
-        let volumeAtual = 80;
-        let mutado = false;
-        let intervalo = null;
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+    const movies = [
+        { id: 'i8Kx2eDnYLs', title: 'Superhero Movie', genre: 'Comédia'},
+        { id: 'OsMhXertdTU', title: 'Arrebentando na Prisão', genre: 'Comédia'},
+        { id: 'y5EcrFwj8yQ', title: 'Tropa de Elite', genre: 'Ação'},
+        { id: 'Xs3ss61iyQs', title: 'João e Maria Caçadores de Bruxas', genre: 'Terror/Ação'},
+        {id: '7XPGU7dmZXg', title: 'tokio funk' , genre: 'comedia'}
 
-        const barraLateral = document.getElementById('barraLateral');
-        const btnLista = document.getElementById('btnLista');
-        const btnSalas = document.getElementById('btnSalas');
-        const listaFilmes = document.getElementById('listaFilmes');
-        const campoBusca = document.getElementById('campoBusca');
-        const telaVazia = document.getElementById('telaVazia');
-        const barraProgresso = document.getElementById('barraProgresso');
-        const barraTempo = document.getElementById('barraTempo');
-        const textoTempo = document.getElementById('textoTempo');
-        const iconePlay = document.getElementById('iconePlay');
-        const iconePause = document.getElementById('iconePause');
-        const iconeVolume = document.getElementById('iconeVolume');
-        const iconeMute = document.getElementById('iconeMute');
-        const barraVolume = document.getElementById('barraVolume');
-        const tituloAtual = document.getElementById('tituloAtual');
-        const containerVideo = document.getElementById('containerVideo');
+    ];
 
-        btnLista.addEventListener('click', () => {
-            barraLateral.classList.toggle('hidden');
-            btnLista.classList.toggle('on');
-        });
+    let player = null;
+    let ytReady = false;
+    let current = null;
+    let pendingId = null;
+    let volume = 80;
+    let muted = false;
+    let pollTimer = null;
 
-        btnSalas.addEventListener('click', () => {
-            barraLateral.classList.remove('hidden');
-            btnLista.classList.add('on');
-        });
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleBtn');
+    const salasBtn = document.getElementById('salasBtn');
+    const listEl = document.getElementById('movieList');
+    const search = document.getElementById('searchInput');
+    const empty = document.getElementById('emptyState');
+    const progFill = document.getElementById('progFill');
+    const seekBar = document.getElementById('seekBar');
+    const timeTxt = document.getElementById('timeTxt');
+    const icoPlay = document.getElementById('icoPlay');
+    const icoPause = document.getElementById('icoPause');
+    const icoVol = document.getElementById('icoVol');
+    const icoMute = document.getElementById('icoMute');
+    const volBar = document.getElementById('volBar');
+    const nowLbl = document.getElementById('nowLbl');
+    const wrapper = document.getElementById('videoWrapper');
 
-        function renderizarLista(filtro = '') {
-            listaFilmes.innerHTML = '';
-            filmes
-                .filter(filme => filme.titulo.toLowerCase().includes(filtro.toLowerCase()))
-                .forEach(filme => {
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hidden');
+        toggleBtn.classList.toggle('on');
+    });
+    salasBtn.addEventListener('click', () => {
+        sidebar.classList.remove('hidden');
+        toggleBtn.classList.add('on');
+    });
 
-                    const item = document.createElement('div');
-                    item.className = 'item-filme';
+    function renderList(filter = '') {
+        listEl.innerHTML = '';
+        movies
+            .filter(m => m.title.toLowerCase().includes(filter.toLowerCase()))
+            .forEach(m => {
+                const el = document.createElement('div');
+                el.className = 'movie-item' + (current && current.id === m.id ? ' active' : '');
+                el.innerHTML = `
+        <div class="thumb">
+          <img src="https://img.youtube.com/vi/${m.id}/mqdefault.jpg" alt=""
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        </div>
+        <div class="movie-info">
+          <div class="movie-title">${m.title}</div>
+          <div class="movie-meta">${m.genre}</div>
+        </div>
+        ${current && current.id === m.id ? '<div class="active-dot"></div>' : ''}
+      `;
+                el.addEventListener('click', () => loadMovie(m));
+                listEl.appendChild(el);
+            });
+    }
+    search.addEventListener('input', () => renderList(search.value));
+    function loadMovie(m) {
+        current = m;
+        empty.style.display = 'none';
+        nowLbl.innerHTML = `<b>${m.title}</b>`;
+        renderList(search.value);
 
-                    if (filmeAtual && filmeAtual.id === filme.id)
-                        item.classList.add('active');
+        if (!ytReady) { pendingId = m.id; return; }
 
-                    item.innerHTML = `
-                        <div class="thumb">
-                            <img src="https://img.youtube.com/vi/${filme.id}/mqdefault.jpg" alt="${filme.titulo}">
-                        </div>
-
-                        <div class="info-filme">
-                            <div class="titulo-filme">${filme.titulo}</div>
-                            <div class="meta-filme">${filme.genero}</div>
-                        </div>
-
-                        ${filmeAtual && filmeAtual.id === filme.id ? '<div class="active-dot"></div>' : ''}
-                    `;
-
-                    item.addEventListener('click', () => carregarFilme(filme));
-                    listaFilmes.appendChild(item);
-                });
+        if (!player) {
+            buildPlayer(m.id);
+        } else {
+            player.loadVideoById(m.id);
         }
+    }
+    window.onYouTubeIframeAPIReady = function () {
+        ytReady = true;
+        if (pendingId) { buildPlayer(pendingId); pendingId = null; }
+    };
 
-        campoBusca.addEventListener('input', () => renderizarLista(campoBusca.value));
-
-        function carregarFilme(filme) {
-            filmeAtual = filme;
-            telaVazia.style.display = 'none';
-            tituloAtual.innerHTML = `<b>${filme.titulo}</b>`;
-            renderizarLista(campoBusca.value);
-
-            if (!youtubePronto) {
-                videoPendente = filme.id;
-                return;
-            }
-            if (!player)
-                criarPlayer(filme.id);
-            else
-                player.loadVideoById(filme.id);
-        }
-
-        window.onYouTubeIframeAPIReady = function () {
-            youtubePronto = true;
-
-            if (videoPendente) {
-                criarPlayer(videoPendente);
-                videoPendente = null;
-            }
-        };
-
-        function criarPlayer(videoId) {
-            player = new YT.Player('playerYoutube', {
-
-                videoId: videoId,
-
-                width: '100%',
-                height: '100%',
-
-                playerVars: {
-                    autoplay: 1,
-                    controls: 0,
-                    rel: 0,
-                    modestbranding: 1
+    function buildPlayer(videoId) {
+        player = new YT.Player('ytPlayer', {
+            videoId,
+            width: '100%',
+            height: '100%',
+            playerVars: {
+                autoplay: 1,
+                controls: 0,
+                rel: 0,
+                modestbranding: 1,
+                iv_load_policy: 3,
+                disablekb: 1,
+                fs: 0,
+                enablejsapi: 1,
+            },
+            events: {
+                onReady(e) {
+                    e.target.setVolume(volume);
+                    e.target.playVideo();
+                    startPoll();
                 },
-
-                events: {
-
-                    onReady(evento) {
-                        evento.target.setVolume(volumeAtual);
-                        evento.target.playVideo();
-                        iniciarIntervalo();
-                    },
-
-                    onStateChange(evento) {
-
-                        if (evento.data === YT.PlayerState.PLAYING) {
-                            atualizarPlay(true);
-                            iniciarIntervalo();
-                        } else {
-                            atualizarPlay(false);
-                            pararIntervalo();
-                        }
+                onStateChange(e) {
+                    if (e.data === YT.PlayerState.PLAYING) {
+                        setUI(true); startPoll();
+                    } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+                        setUI(false); stopPoll();
                     }
                 }
-            });
-        }
-
-        function iniciarIntervalo() {
-            pararIntervalo();
-
-            intervalo = setInterval(() => {
-
-                if (!player) return;
-
-                const tempoAtual = player.getCurrentTime() || 0;
-                const duracao = player.getDuration() || 0;
-
-                if (duracao > 0) {
-
-                    const porcentagem = (tempoAtual / duracao) * 100;
-                    barraProgresso.style.width = porcentagem + '%';
-                    barraTempo.value = Math.round((tempoAtual / duracao) * 1000);
-                }
-                textoTempo.textContent = formatarTempo(tempoAtual) + ' / ' + formatarTempo(duracao);
-            }, 500);
-        }
-
-        function pararIntervalo() {
-            clearInterval(intervalo);
-        }
-
-        function alternarPlay() {
-
-            if (!player) return;
-
-            if (player.getPlayerState() === YT.PlayerState.PLAYING)
-                player.pauseVideo();
-            else
-                player.playVideo();
-        }
-
-        document.getElementById('btnPlay').addEventListener('click', alternarPlay);
-
-        document.getElementById('camadaClique').addEventListener('click', alternarPlay);
-
-        function atualizarPlay(tocando) {
-            iconePlay.style.display = tocando ? 'none' : '';
-            iconePause.style.display = tocando ? '' : 'none';
-        }
-
-        barraTempo.addEventListener('input', () => {
-
-            if (!player) return;
-
-            const duracao = player.getDuration() || 0;
-
-            const novoTempo = (barraTempo.value / 1000) * duracao;
-
-            player.seekTo(novoTempo, true);
-
-            barraProgresso.style.width = (barraTempo.value / 10) + '%';
-        });
-
-        document.getElementById('btnVoltar').addEventListener('click', () => {
-
-            if (!player) return;
-
-            player.seekTo(
-                Math.max(0, player.getCurrentTime() - 10),
-                true
-            );
-        });
-
-        document.getElementById('btnAvancar').addEventListener('click', () => {
-
-            if (!player) return;
-
-            player.seekTo(
-                Math.min(player.getDuration(), player.getCurrentTime() + 10),
-                true
-            );
-        });
-
-        barraVolume.addEventListener('input', () => {
-
-            volumeAtual = parseInt(barraVolume.value);
-
-            if (volumeAtual === 0) {
-                mutado = true;
-                player.mute();
-            } else {
-                mutado = false;
-                player.unMute();
-                player.setVolume(volumeAtual);
             }
-            atualizarVolume();
         });
-
-        document.getElementById('btnVolume').addEventListener('click', () => {
-
-            if (!player) return;
-            mutado = !mutado;
-
-            if (mutado)
-                player.mute();
-            else {
-                player.unMute();
-                player.setVolume(volumeAtual);
+    }
+    function startPoll() {
+        stopPoll();
+        pollTimer = setInterval(() => {
+            if (!player || !player.getCurrentTime) return;
+            const cur = player.getCurrentTime() || 0;
+            const dur = player.getDuration() || 0;
+            if (dur > 0) {
+                const pct = (cur / dur) * 100;
+                progFill.style.width = pct + '%';
+                seekBar.value = Math.round((cur / dur) * 1000);
             }
-            atualizarVolume();
-        });
+            timeTxt.textContent = fmt(cur) + ' / ' + fmt(dur);
+        }, 500);
+    }
+    function stopPoll() { clearInterval(pollTimer); }
 
-        function atualizarVolume() {
-            iconeVolume.style.display = mutado ? 'none' : '';
-            iconeMute.style.display = mutado ? '' : 'none';
-        }
+    function togglePlay() {
+        if (!player) return;
+        player.getPlayerState() === YT.PlayerState.PLAYING
+            ? player.pauseVideo()
+            : player.playVideo();
+    }
+    document.getElementById('btnPlay').addEventListener('click', togglePlay);
+    document.getElementById('clickLayer').addEventListener('click', togglePlay);
 
-        document.getElementById('btnTelaCheia').addEventListener('click', () => {
-            if (document.fullscreenElement)
-                document.exitFullscreen();
-            else
-                containerVideo.requestFullscreen();
-        });
+    function setUI(isPlaying) {
+        icoPlay.style.display = isPlaying ? 'none' : '';
+        icoPause.style.display = isPlaying ? '' : 'none';
+    }
+    seekBar.addEventListener('input', () => {
+        if (!player || !player.getDuration) return;
+        const dur = player.getDuration() || 0;
+        const t = (seekBar.value / 1000) * dur;
+        player.seekTo(t, true);
+        progFill.style.width = (seekBar.value / 10) + '%';
+        timeTxt.textContent = fmt(t) + ' / ' + fmt(dur);
+    });
 
-        function formatarTempo(segundos) {
-            if (!segundos || isNaN(segundos))
-                return '0:00';
+    document.getElementById('btnRew').addEventListener('click', () => {
+        if (player) player.seekTo(Math.max(0, player.getCurrentTime() - 10), true);
+    });
+    document.getElementById('btnFwd').addEventListener('click', () => {
+        if (player) player.seekTo(Math.min(player.getDuration() || 0, player.getCurrentTime() + 10), true);
+    });
 
-            const minutos = Math.floor(segundos / 60);
-            const segundosRestantes = String(Math.floor(segundos % 60)).padStart(2, '0');
-            return `${minutos}:${segundosRestantes}`;
-        }
-        renderizarLista();
+    volBar.addEventListener('input', () => {
+        volume = parseInt(volBar.value);
+        muted = volume === 0;
+        if (player) player.setVolume(volume);
+        updVol();
+    });
+    document.getElementById('btnVol').addEventListener('click', () => {
+        if (!player) return;
+        muted = !muted;
+        muted ? player.mute() : player.unMute();
+        volBar.value = muted ? 0 : volume;
+        if (!muted) player.setVolume(volume);
+        updVol();
+    });
+    function updVol() {
+        icoVol.style.display = muted ? 'none' : '';
+        icoMute.style.display = muted ? '' : 'none';
+    }
 
-    </script>
+    document.getElementById('btnFs').addEventListener('click', () => {
+        document.fullscreenElement ? document.exitFullscreen() : wrapper.requestFullscreen().catch(() => { });
+    });
 
+    function fmt(s) {
+        if (!s || isNaN(s)) return '0:00';
+        return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+    }
+    renderList();
+</script>
 </body>
 
 </html>
-```
