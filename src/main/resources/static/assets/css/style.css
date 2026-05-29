@@ -92,5 +92,11 @@ main img {
     height: 20em;
 }
 
+footer {
+    color: var(--font-color1);
+    text-align: center;
+    padding: 2em;
+    background-color: var(--header-fundo);
+}
 
 

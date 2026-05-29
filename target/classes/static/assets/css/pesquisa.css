@@ -7,6 +7,9 @@ header {
 }
 
 .avatar-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 45px !important;
     height: 45px !important;
     border-radius: 50% !important;
@@ -15,6 +18,10 @@ header {
     transition: transform 0.2s ease, border-color 0.2s ease;
     background-size: cover;
     background-position: center;
+}
+
+.avatar-header svg{
+    color: var(--font-color2);
 }
 
 .avatar-header:hover {
