@@ -31,17 +31,37 @@ public class FilmeController {
     @PostMapping("/salvar/{usuarioId}")
     public ResponseEntity<?> salvarFilme(
             @PathVariable Long usuarioId,
-            @RequestBody Filme filme
-    ) {
+            @RequestBody Filme filme) {
         filmeService.salvarFilme(usuarioId, filme);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/minha-lista/{usuarioId}")
     public ResponseEntity<List<Filme>> obterMinhaLista(
-            @PathVariable Long usuarioId
-    ) {
+            @PathVariable Long usuarioId) {
         List<Filme> filmes = filmeService.listarMinhaLista(usuarioId);
         return ResponseEntity.ok(filmes);
+    }
+
+    @GetMapping("/lista/{usuarioId}/{status}")
+    public ResponseEntity<List<Filme>> listarPorStatus(
+            @PathVariable Long usuarioId,
+            @PathVariable String status) {
+        List<Filme> filmes = filmeService.listarPorStatus(usuarioId, status);
+        return ResponseEntity.ok(filmes);
+    }
+
+    @GetMapping("/assistidos/{usuarioId}")
+    public ResponseEntity<List<Filme>> assistidos(
+            @PathVariable Long usuarioId) {
+        return ResponseEntity.ok(
+                filmeService.buscarAssistidos(usuarioId));
+    }
+
+    @GetMapping("/favoritos/{usuarioId}")
+    public ResponseEntity<List<Filme>> favoritos(
+            @PathVariable Long usuarioId) {
+        return ResponseEntity.ok(
+                filmeService.buscarFavoritos(usuarioId));
     }
 }

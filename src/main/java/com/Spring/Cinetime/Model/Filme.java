@@ -1,6 +1,5 @@
 package com.Spring.Cinetime.Model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.*;
 

@@ -185,8 +185,10 @@
 
         try {
           // 4. Envia os dados para o seu FilmeController
+          const userId = localStorage.getItem("userId");
+
           const resposta = await fetch(
-            "http://localhost:8080/api/filmes/salvar",
+            `http://localhost:8080/api/filmes/salvar/${userId}`,
             {
               method: "POST",
               headers: {

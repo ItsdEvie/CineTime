@@ -191,4 +191,20 @@ public class FilmeService {
                 usuarioId,
                 "QUERO_ASSISTIR");
     }
+
+    public List<Filme> listarPorStatus(Long usuarioId, String status) {
+        return filmeRepository.findByUsuarioIdAndStatusLista(usuarioId, status);
+    }
+
+    public List<Filme> buscarAssistidos(Long usuarioId) {
+        return filmeRepository.findByUsuarioIdAndStatusLista(
+                usuarioId,
+                "ASSISTIDO");
+    }
+
+    public List<Filme> buscarFavoritos(Long usuarioId) {
+        return filmeRepository.findByUsuarioIdAndStatusLista(
+                usuarioId,
+                "FAVORITO");
+    }
 }

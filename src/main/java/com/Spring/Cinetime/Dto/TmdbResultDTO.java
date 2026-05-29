@@ -1,6 +1,6 @@
 package com.Spring.Cinetime.Dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TmdbResultDTO {

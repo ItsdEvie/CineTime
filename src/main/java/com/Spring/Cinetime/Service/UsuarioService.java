@@ -51,15 +51,13 @@ public class UsuarioService {
 
         var usuarioComMesmoEmail = usuarioRepository.findByEmail(dto.email());
 
-        if (usuarioComMesmoEmail.isPresent()&& !usuarioComMesmoEmail.get().getId().equals(id)) {
+        if (usuarioComMesmoEmail.isPresent() && !usuarioComMesmoEmail.get().getId().equals(id)) {
 
             throw new RuntimeException("Email já cadastrado");
         }
 
         usuario.setName(dto.name());
         usuario.setEmail(dto.email());
-        usuario.setBiografia(dto.biografia());
-        usuario.setFotoPerfil(dto.fotoPerfil());
 
         if (dto.date() != null) {
             usuario.setDataNascimento(dto.date());
@@ -75,7 +73,8 @@ public class UsuarioService {
 
             usuario.setSenha(senhaCriptografada);
         }
-
+        usuario.setBiografia(dto.biografia());
+        usuario.setFotoPerfil(dto.fotoPerfil());
         return usuarioRepository.save(usuario);
     }
 
