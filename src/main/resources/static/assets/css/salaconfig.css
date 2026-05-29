@@ -1,5 +1,19 @@
-body {
-    height: 100vh;
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.roxo {
+    color: var(--primary-color) !important;
+    font-weight: bold;
+    font-size: 32px;
+}
+
+img {
+  height: 48px;
 }
 
 .cine-header {
@@ -9,12 +23,12 @@ body {
   justify-content: center;
   position: relative;
   padding: 0 24px;
-  height: 56px;
+  height: 143px;
   border-bottom: 1px solid rgba(98, 0, 238, 0.3);
 }
 
 .cine-header .header-logo {
-  font-size: 1.2rem;
+  font-size: 32px;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--font-color1);
@@ -62,6 +76,8 @@ body {
 #page-configurar.active {
   display: flex;
 }
+
+
 
 .configurar-title {
   font-size: 2rem;

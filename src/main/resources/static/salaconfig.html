@@ -5,185 +5,323 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="/assets/css/root.css">
-    <link rel="stylesheet" href="/assets/css/salaconfig.css">
-    <link rel="shortcut icon" href="/assets/img/logo.webp" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/root.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/salaconfig.css">
+    <link rel="shortcut icon" href="assets/img/logo.webp" type="image/x-icon">
 
     <title>CineTime</title>
 </head>
 
 <body>
 
-    <header class="cine-header">
-        <button class="header-icon" id="btn-header-action" title="Voltar / Início" aria-label="Ação de navegação">
-            <a href="/home.html" style="color: var(--font-color1);">
-                <svg id="icon-home" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m4-8v8m-7 0h10a2 2 0 002-2v-6" />
-                </svg>
-            </a>
-        </button>
-        <span class="header-logo">CineTime</span>
-    </header>
+<header class="cine-header">
+    <button class="header-icon" id="btn-header-action" title="Voltar / Início" aria-label="Ação de navegação">
+        <a href="home.html" style="color: var(--font-color1);">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+        </a>
+    </button>
 
-    <main id="page-configurar" class="page active">
-        <h1 class="configurar-title">Configurar</h1>
-        <form class="configurar-form" id="form-criar-sala" autocomplete="off">
+    <div class="logo">
+        <img src="assets/img/logo.webp" alt="Logo CineTime">
+        <span class="header-logo">Cine</span>
+        <span class="roxo">Time</span>
+    </div>
+</header>
 
-            <div class="form-group">
-                <label for="nome-sala">Nome da Sala:</label>
-                <input type="text" id="nome-sala" placeholder="Digite o nome da sala" maxlength="40" required/>
-            </div>
+<main id="page-configurar" class="page active">
+    <h1 class="configurar-title">Configurar</h1>
+    <form class="configurar-form" id="form-criar-sala" autocomplete="off">
 
-            <div class="form-group">
-                <label for="idioma-sala">Idioma da Sala</label>
-                <div class="select-wrapper">
-                    <select id="idioma-sala">
-                        <option value="pt-BR">Português</option>
-                        <option value="en">English</option>
-                        <option value="es">Español</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group toggle-row">
-                <label for="sala-visivel">Sala Visível</label>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="sala-visivel" />
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-            <div class="form-group senha-group" id="senha-group">
-                <label for="senha-sala">Senha da Sala:</label>
-                <input type="password" id="senha-sala" placeholder="Insira uma senha" maxlength="32" required />
-            </div>
-
-            <div class="form-group">
-                <label for="participantes">Participantes</label>
-                <div class="select-wrapper">
-                    <select id="participantes">
-                        <option value="" disabled selected>Quantidade de Participantes</option>
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="50">50</option>
-                    </select>
-                </div>
-            </div>
-
-            <button id="btn_criar" type="submit" class="btn-criar">Criar Sala</button>
-        </form>
-    </main>
-    <section id="page-salas" class="page">
-        <h2 class="salas-title">Salas</h2>
-        <div class="salas-grid" id="salas-grid">
-            <p class="salas-empty">Nenhuma sala criada ainda.</p>
+        <div class="form-group">
+            <label for="nome-sala">Nome da Sala:</label>
+            <input type="text" id="nome-sala" placeholder="Digite o nome da sala" maxlength="40" />
         </div>
-    </section>
-    <div class="modal-overlay" id="modal-senha" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-        <div class="modal-box">
-            <p class="modal-title" id="modal-title">Sala Privada</p>
-            <p class="modal-subtitle">Digite a senha para entrar nesta sala.</p>
-            <input type="password" class="modal-input" id="modal-input-senha" placeholder="Senha da sala"
-                maxlength="32" />
-            <p class="modal-error" id="modal-error"></p>
-            <div class="modal-actions">
-                <button class="btn-modal-cancel" id="btn-modal-cancel">Cancelar</button>
-                <button class="btn-modal-enter" id="btn-modal-enter">Entrar</button>
+
+        <div class="form-group">
+            <label for="idioma-sala">Idioma da Sala</label>
+            <div class="select-wrapper">
+                <select id="idioma-sala">
+                    <option value="pt-BR">Português</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                </select>
             </div>
+        </div>
+
+        <div class="form-group toggle-row">
+            <label for="sala-visivel">Sala Visível</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="sala-visivel" />
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <div class="form-group senha-group" id="senha-group">
+            <label for="senha-sala">Senha da Sala:</label>
+            <input type="password" id="senha-sala" placeholder="Insira uma senha" maxlength="32" />
+        </div>
+
+        <div class="form-group">
+            <label for="participantes">Participantes</label>
+            <div class="select-wrapper">
+                <select id="participantes">
+                    <option value="" disabled selected>Quantidade de Participantes</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-criar">Criar Sala</button>
+    </form>
+</main>
+<section id="page-salas" class="page">
+    <h2 class="salas-title">Salas</h2>
+    <div class="salas-grid" id="salas-grid">
+        <p class="salas-empty">Nenhuma sala criada ainda.</p>
+    </div>
+</section>
+<div class="modal-overlay" id="modal-senha" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+        <p class="modal-title" id="modal-title">Sala Privada</p>
+        <p class="modal-subtitle">Digite a senha para entrar nesta sala.</p>
+        <input type="password" class="modal-input" id="modal-input-senha" placeholder="Senha da sala"
+               maxlength="32" />
+        <p class="modal-error" id="modal-error"></p>
+        <div class="modal-actions">
+            <button class="btn-modal-cancel" id="btn-modal-cancel">Cancelar</button>
+            <button class="btn-modal-enter" id="btn-modal-enter">Entrar</button>
         </div>
     </div>
+</div>
 
-    <div class="toast" id="toast"></div>
+<div class="toast" id="toast"></div>
 
-    <script>
-        const salas = [];
-        let modalTargetSala = null;
+<script>
+    const salas = [];
+    let modalTargetSala = null;
 
-        const button_criar_sala = document.getElementById("btn_criar")
-        const form = document.getElementById('form-criar-sala');
-        const toggleVisivel = document.getElementById('sala-visivel');
-        const senhaGroup = document.getElementById('senha-group');
-        const modalInputSenha = document.getElementById('modal-input-senha');
-        const modalError = document.getElementById('modal-error');
+    const pageConfigurar = document.getElementById('page-configurar');
+    const pageSalas = document.getElementById('page-salas');
+    const form = document.getElementById('form-criar-sala');
+    const toggleVisivel = document.getElementById('sala-visivel');
+    const senhaGroup = document.getElementById('senha-group');
+    const salasGrid = document.getElementById('salas-grid');
+    const btnHeaderAction = document.getElementById('btn-header-action');
+    const modalOverlay = document.getElementById('modal-senha');
+    const modalInputSenha = document.getElementById('modal-input-senha');
+    const modalError = document.getElementById('modal-error');
+    const btnModalCancel = document.getElementById('btn-modal-cancel');
+    const btnModalEnter = document.getElementById('btn-modal-enter');
+    const toast = document.getElementById('toast');
 
-        button_criar_sala.addEventListener('click', (e) => {
-            window.location.href = "/sala.html";
-        });
+    function showPage(page) {
+        pageConfigurar.classList.remove('active');
+        pageSalas.classList.remove('active');
+        page.classList.add('active');
 
-        function showToast(msg, duration = 2800) {
-            toast.textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), duration);
+        if (page === pageSalas) {
+            iconHome.style.display = 'block';
+            iconClose.style.display = 'none';
+        } else {
+            iconHome.style.display = 'none';
+            iconClose.style.display = 'block';
         }
+    }
 
-        function getIdiomaLabel(value) {
-            const map = {
-                'pt-BR': 'Português Brasileiro',
-                'pt-PT': 'Português (Portugal)',
-                'en': 'English',
-                'es': 'Español',
+    function showToast(msg, duration = 2800) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), duration);
+    }
 
-            };
-            return map[value] || value;
-        }
+    function getIdiomaLabel(value) {
+        const map = {
+            'pt-BR': 'Português Brasileiro',
+            'pt-PT': 'Português (Portugal)',
+            'en': 'English',
+            'es': 'Español',
+            'fr': 'Français',
+            'de': 'Deutsch',
+            'ja': '日本語',
+        };
+        return map[value] || value;
+    }
 
-        toggleVisivel.addEventListener('change', () => {
-            const isPrivate = !toggleVisivel.checked;
-            if (isPrivate) {
-                senhaGroup.classList.add('visible');
-            } else {
-                senhaGroup.classList.remove('visible');
-                document.getElementById('senha-sala').value = '';
-            }
-        });
-
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const nome = document.getElementById('nome-sala').value.trim();
-            const idioma = document.getElementById('idioma-sala').value;
-            const visivel = toggleVisivel.checked;
-            const senha = document.getElementById('senha-sala').value;
-            const participantes = document.getElementById('participantes').value;
-
-            if (!nome) {
-                showToast('⚠️ Digite o nome da sala.');
-                document.getElementById('nome-sala').focus();
-                return;
-            }
-            if (!participantes) {
-                showToast('⚠️ Selecione a quantidade de participantes.');
-                return;
-            }
-            if (!visivel && !senha) {
-                showToast('⚠️ Insira uma senha para a sala privada.');
-                document.getElementById('senha-sala').focus();
-                return;
-            }
-
-            const sala = {
-                id: Date.now(),
-                nome,
-                idioma,
-                visivel,
-                senha: visivel ? null : senha,
-                participantesMax: parseInt(participantes),
-                participantesAtual: 0,
-            };
-
-            salas.push(sala);
-            renderSalas();
-            showPage(pageSalas);
-            showToast(`✅ Sala "${nome}" criada com sucesso!`);
-            form.reset();
+    toggleVisivel.addEventListener('change', () => {
+        const isPrivate = !toggleVisivel.checked;
+        if (isPrivate) {
+            senhaGroup.classList.add('visible');
+        } else {
             senhaGroup.classList.remove('visible');
+            document.getElementById('senha-sala').value = '';
+        }
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const nome = document.getElementById('nome-sala').value.trim();
+        const idioma = document.getElementById('idioma-sala').value;
+        const visivel = toggleVisivel.checked;
+        const senha = document.getElementById('senha-sala').value;
+        const participantes = document.getElementById('participantes').value;
+
+        if (!nome) {
+            showToast('⚠️ Digite o nome da sala.');
+            document.getElementById('nome-sala').focus();
+            return;
+        }
+        if (!participantes) {
+            showToast('⚠️ Selecione a quantidade de participantes.');
+            return;
+        }
+        if (!visivel && !senha) {
+            showToast('⚠️ Insira uma senha para a sala privada.');
+            document.getElementById('senha-sala').focus();
+            return;
+        }
+
+        const sala = {
+            id: Date.now(),
+            nome,
+            idioma,
+            visivel,
+            senha: visivel ? null : senha,
+            participantesMax: parseInt(participantes),
+            participantesAtual: 0,
+        };
+
+        salas.push(sala);
+        renderSalas();
+        showPage(pageSalas);
+        showToast(`✅ Sala "${nome}" criada com sucesso!`);
+        form.reset();
+        senhaGroup.classList.remove('visible');
+    });
+    function renderSalas() {
+        if (salas.length === 0) {
+            salasGrid.innerHTML = '<p class="salas-empty">Nenhuma sala criada ainda.</p>';
+            return;
+        }
+
+        salasGrid.innerHTML = '';
+        salas.forEach((sala, index) => {
+            const card = document.createElement('div');
+            card.className = 'sala-card';
+            card.setAttribute('data-id', sala.id);
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+            card.setAttribute('aria-label', `Entrar na sala ${sala.nome}`);
+            card.style.animationDelay = `${index * 0.06}s`;
+
+            card.innerHTML = `
+      <div class="sala-thumb">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/>
+        </svg>
+      </div>
+      <div class="sala-info">
+        <p class="sala-name">${escapeHtml(sala.nome)}</p>
+        <span class="sala-meta">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20H7a2 2 0 01-2-2v0a5 5 0 015-5h4a5 5 0 015 5v0a2 2 0 01-2 2zM12 11a4 4 0 100-8 4 4 0 000 8z"/>
+          </svg>
+          Participantes: ${sala.participantesAtual}/${sala.participantesMax}
+        </span>
+        <span class="sala-meta">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h18M3 10h18M3 15h12"/>
+          </svg>
+          ${getIdiomaLabel(sala.idioma)}
+        </span>
+        <span class="sala-meta">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m0 0v2m0-2h2m-2 0H10m2-5a3 3 0 100-6 3 3 0 000 6zm6 3a6 6 0 11-12 0"/>
+          </svg>
+          ${sala.visivel ? 'Sim' : 'Não'}
+        </span>
+      </div>
+    `;
+
+            card.addEventListener('click', () => handleEnterSala(sala));
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') handleEnterSala(sala);
+            });
+
+            salasGrid.appendChild(card);
         });
-    </script>
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function handleEnterSala(sala) {
+        if (!sala.visivel && sala.senha) {
+            // Sala privada: pedir senha
+            modalTargetSala = sala;
+            modalInputSenha.value = '';
+            modalError.textContent = '';
+            document.getElementById('modal-title').textContent = `🔒 ${sala.nome}`;
+            modalOverlay.classList.add('open');
+            setTimeout(() => modalInputSenha.focus(), 200);
+        } else {
+            enterRoom(sala);
+        }
+    }
+
+    function enterRoom(sala) {
+        sala.participantesAtual = Math.min(sala.participantesAtual + 1, sala.participantesMax);
+        renderSalas();
+        showToast(`🎬 Você entrou em "${sala.nome}"!`);
+    }
+
+    btnModalCancel.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+    });
+
+    btnModalEnter.addEventListener('click', checkModalPassword);
+    modalInputSenha.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') checkModalPassword();
+    });
+
+    function checkModalPassword() {
+        if (!modalTargetSala) return;
+        if (modalInputSenha.value === modalTargetSala.senha) {
+            closeModal();
+            enterRoom(modalTargetSala);
+        } else {
+            modalError.textContent = 'Senha incorreta. Tente novamente.';
+            modalInputSenha.value = '';
+            modalInputSenha.focus();
+        }
+    }
+
+    function closeModal() {
+        modalOverlay.classList.remove('open');
+        modalTargetSala = null;
+        modalError.textContent = '';
+    }
+
+    btnHeaderAction.addEventListener('click', () => {
+        if (pageSalas.classList.contains('active')) {
+            showPage(pageConfigurar);
+        } else {
+            showPage(pageSalas);
+        }
+    });
+</script>
 </body>
 
 </html>

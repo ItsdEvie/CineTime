@@ -50,7 +50,11 @@
                     </button>
                 </a>
             </div>
-            <div class="topbar-center"><span class="brand">CINE</span></div>
+            <div class="topbar-center">
+                <img src="assets/img/logo.webp" alt="">
+                <span class="brand">Cine</span>
+                <span class="roxo">Time</span>
+            </div>
             <div class="topbar-right">
                 <button class="icon-btn" id="salasBtn" title="Salas">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -168,8 +172,6 @@
         { id: 'OsMhXertdTU', title: 'Arrebentando na Prisão', genre: 'Comédia'},
         { id: 'y5EcrFwj8yQ', title: 'Tropa de Elite', genre: 'Ação'},
         { id: 'Xs3ss61iyQs', title: 'João e Maria Caçadores de Bruxas', genre: 'Terror/Ação'},
-        {id: '7XPGU7dmZXg', title: 'tokio funk' , genre: 'comedia'}
-
     ];
 
     let player = null;
@@ -214,16 +216,16 @@
                 const el = document.createElement('div');
                 el.className = 'movie-item' + (current && current.id === m.id ? ' active' : '');
                 el.innerHTML = `
-        <div class="thumb">
-          <img src="https://img.youtube.com/vi/${m.id}/mqdefault.jpg" alt=""
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        </div>
-        <div class="movie-info">
-          <div class="movie-title">${m.title}</div>
-          <div class="movie-meta">${m.genre}</div>
-        </div>
-        ${current && current.id === m.id ? '<div class="active-dot"></div>' : ''}
-      `;
+    <div class="thumb">
+      <img src="https://img.youtube.com/vi/${m.id}/mqdefault.jpg" alt=""
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    </div>
+    <div class="movie-info">
+      <div class="movie-title">${m.title}</div>
+      <div class="movie-meta">${m.genre}</div>
+    </div>
+    ${current && current.id === m.id ? '<div class="active-dot"></div>' : ''}
+  `;
                 el.addEventListener('click', () => loadMovie(m));
                 listEl.appendChild(el);
             });

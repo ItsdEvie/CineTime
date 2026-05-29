@@ -8,8 +8,8 @@ body {
 
 
 .sidebar {
-    width: 160px;
-    min-width: 160px;
+    width: 200px;
+    min-width: 200px;
     background-color: var(--header-fundo);
     display: flex;
     flex-direction: column;
@@ -51,10 +51,16 @@ body {
 }
 
 .main h1 {
-    font-size: 22px;
+    font-size: 28px;
     font-weight: 700;
     color: var(--font-color1);
     margin-bottom: 28px;
+}
+
+.perfil-foto-bio {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 32px;
 }
 
 .profile-card {
@@ -65,8 +71,8 @@ body {
 }
 
 .avatar {
-    width: 88px;
-    height: 88px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     background-color: #3a3a3a;
     display: flex;
@@ -76,7 +82,7 @@ body {
 }
 
 .avatar i {
-    font-size: 52px;
+    font-size: 110px;
     color: #888;
 }
 
@@ -110,7 +116,7 @@ body {
 }
 
 .section-title {
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--font-color1);
     margin-bottom: 14px;
@@ -127,12 +133,13 @@ body {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    width: 155px;
+    width: 250px;
+    align-items: center;
 }
 
 .movie-thumb {
-    width: 155px;
-    height: 100px;
+    width: 250px;
+    height: 140px;
     border-radius: 8px;
     overflow: hidden;
     background-color: #1a1a2e;
@@ -159,7 +166,7 @@ body {
 
 .movie-thumb.matrix .thumb-text {
     font-family: 'Montserrat', sans-serif;
-    font-size: 22px;
+    font-size: 28px;
     font-weight: 900;
     letter-spacing: 4px;
     color: #00cc44;
@@ -210,7 +217,7 @@ body {
 }
 
 .movie-thumb.inception .thumb-text {
-    font-size: 14px;
+    font-size: 22px;
     font-weight: 900;
     letter-spacing: 6px;
     color: #e8c84a;
@@ -225,7 +232,7 @@ body {
 }
 
 .movie-name {
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: bold;
     color: var(--font-color1);
 }
