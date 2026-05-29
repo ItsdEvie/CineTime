@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,220 +11,197 @@
 </head>
 
 <body>
-<header>
-  <div
-          class="logo"
-          style="cursor: pointer"
-          onclick="window.location.href = 'home.html'"
-  >
-    <img src="assets/img/logo.webp" alt="CineTime-logo" />
-    <h1>Cine</h1>
-    <h1 class="roxo">Time</h1>
-  </div>
-
-  <div
-          class="search-container"
-          style="position: relative; flex: 1; max-width: 500px; margin: 0 20px"
-  >
-    <input
-            type="text"
-            id="search"
-            placeholder="Pesquise por filmes ou séries..."
-            style="
-            width: 100%;
-            padding: 12px 20px;
-            background-color: var(--background-fundo);
-            border: 2px solid #333;
-            border-radius: 8px;
-            color: white;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.3s ease;
-          "
-    />
-    <div
-            id="search-suggestions"
-            style="
-            position: absolute;
-            width: 100%;
-            background: var(--header-fundo);
-            border-radius: 8px;
-            top: 55px;
-            z-index: 100;
-            display: none;
-            box-shadow: 0 8px 166px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-          "
-    ></div>
-  </div>
-
-  <div
-          class="avatar-header"
-          id="avatar-menu"
-          onclick="window.location.href = 'user.html'"
-          title="Ir para o Perfil"
-  >
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-    </svg>
-  </div>
-</header>
-
-<main>
-  <section class="container-home">
-    <img src="assets/img/rolo-filme.png" alt="rolo de filme" />
-    <div class="fundo">
-      <div class="fundo-blur"></div>
-      <h1>
-        Transforme cada cena em um momento <br />
-        compartilhado. A pipoca é por sua conta, <br />
-        a conexão é por nossa.
-      </h1>
+  <header>
+    <div class="logo" style="cursor: pointer" onclick="window.location.href = 'home.html'">
+      <img src="assets/img/logo.webp" alt="CineTime-logo" />
+      <h1>Cine</h1>
+      <h1 class="roxo">Time</h1>
     </div>
-    <img
-            src="assets/img/undraw_home-cinema_jdm1.svg"
-            alt="assistindo filme"
-    />
+
+    <div class="search-container" style="position: relative; flex: 1; max-width: 500px; margin: 0 20px">
+      <input type="text" id="search" placeholder="Pesquise por filmes ou séries..."
+        style="width: 100%; padding: 12px 20px; background-color: var(--background-fundo); border: 2px solid #333; border-radius: 8px; color: white; font-size: 0.95rem; outline: none; transition: border-color 0.3s ease;" />
+      <div id="search-suggestions"
+        style="position: absolute; width: 100%; background: var(--header-fundo); border-radius: 8px; top: 55px; z-index: 100; display: none; box-shadow: 0 8px 166px rgba(0, 0, 0, 0.5); overflow: hidden;">
+      </div>
+    </div>
+
+    <div class="avatar-header" id="avatar-menu" onclick="window.location.href = 'user.html'" title="Ir para o Perfil">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill"
+        viewBox="0 0 16 16">
+        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+      </svg>
+    </div>
+  </header>
+
+  <main>
+    <section class="container-home">
+      <img src="assets/img/rolo-filme.png" alt="rolo de filme" />
+      <div class="fundo">
+        <div class="fundo-blur"></div>
+        <h1>
+          Transforme cada cena em um momento <br />
+          compartilhado. A pipoca é por sua conta, <br />
+          a conexão é por nossa.
+        </h1>
+      </div>
+      <img src="assets/img/undraw_home-cinema_jdm1.svg" alt="assistindo filme" />
+    </section>
+
+    <section class="room-create">
+      <a href="salaconfig.html"><button id="public">Criar Sala</button></a>
+      <a href="salas.html"><button id="private">Lista de Salas</button></a>
+    </section>
+  </main>
+
+  <hr style="border: 1px solid #222; margin: 20px 0" />
+
+  <section style="padding: 30px 5%">
+    <div>
+      <h2 style="color: white; font-size: 1.5rem; margin-bottom: 15px">
+        🍿 Minha Lista
+      </h2>
+      <div id="lista-pessoal"
+        style="display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none;">
+        <p style="color: #666; font-size: 0.95rem">Carregando sua lista...</p>
+      </div>
+    </div>
   </section>
 
-  <section class="room-create">
-    <a href="salaconfig.html"><button id="public">Criar Sala</button></a>
-    <a href="salas.html"><button id="private">Lista de Salas</button></a>
-  </section>
-</main>
+  <script>
+    const API_URL = "https://cinetime-production-6087.up.railway.app";
 
-<hr style="border: 1px solid #222; margin: 20px 0" />
+    document.addEventListener("DOMContentLoaded", async () => {
+      const userId = localStorage.getItem("userId");
 
-<section style="padding: 30px 5%">
-  <div>
-    <h2 style="color: white; font-size: 1.5rem; margin-bottom: 15px">
-      🍿 Minha Lista
-    </h2>
-    <div
-            id="lista-pessoal"
-            style="
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-            scrollbar-width: none;
-          "
-    >
-      <p style="color: #666; font-size: 0.95rem">Carregando sua lista...</p>
-    </div>
-  </div>
-</section>
-
-<script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    const userId = localStorage.getItem("userId");
-
-    if (!userId) {
-      window.location.href = "login.html";
-      return;
-    }
-
-    // Carregar Avatar do Usuário pelo Backend
-    try {
-      const responseUsuario = await fetch(
-        `http://localhost:8080/api/Usuarios/${userId}`,
-      );
-
-      const usuario = await responseUsuario.json();
-
-      const foto = usuario.fotoPerfil || "assets/img/default-avatar.png";
-
-      const elementoAvatar = document.getElementById("avatar-menu");
-
-      elementoAvatar.style.backgroundImage = `url('${foto}')`;
-    } catch (erro) {
-      console.error("Erro ao carregar avatar:", erro);
-    }
-
-    // FETCH ÚNICO DA MINHA LISTA
-
-    fetch(`http://localhost:8080/api/filmes/lista/${userId}/QUERO_ASSISTIR`)
-      .then((res) => res.json())
-      .then((dados) => {
-        const container = document.getElementById("lista-pessoal");
-        if (dados.length === 0) {
-          container.innerHTML =
-            "<p style='color:#666; font-size:0.95rem;'>Sua lista está vazia por enquanto.</p>";
-          return;
-        }
-        container.innerHTML = "";
-        dados.forEach((filme) => {
-          const urlImagem =
-            filme.imagemUrl && !filme.imagemUrl.includes("null")
-              ? filme.imagemUrl
-              : "assets/img/rolo-filme.png";
-          container.innerHTML += `
-                                    <div style="min-width: 260px; max-width: 260px; height: 150px; border-radius: 8px; overflow: hidden; position: relative; cursor: pointer; transition: transform 0.2s;"
-                                         onclick="window.location.href='detalhes.html?id=${filme.idExterno}&tipo=${encodeURIComponent(filme.genero)}'"
-                                         onmouseenter="this.style.transform='scale(1.03)'" onmouseleave="this.style.transform='scale(1)'">
-                                        <div style="background-image: url('${urlImagem}'); background-size: cover; background-position: center; width: 100%; height: 100%;"></div>
-                                        <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 80%);"></div>
-                                        <div style="position: absolute; bottom: 10px; left: 12px; right: 12px; color: white;">
-                                            <h3 style="font-size: 1rem; font-weight: bold; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${filme.titulo}</h3>
-                                        </div>
-                                    </div>
-                                `;
-        });
-      })
-      .catch((err) => console.error(err));
-
-    // AUTOCOMPLETE DA BARRA DE PESQUISA
-    const campoPesquisa = document.getElementById("search");
-    const caixaSugestoes = document.getElementById("search-suggestions");
-
-    campoPesquisa.addEventListener("input", async () => {
-      const termo = campoPesquisa.value.trim();
-      if (termo.length < 2) {
-        caixaSugestoes.style.display = "none";
+      if (!userId) {
+        window.location.href = "login.html";
         return;
       }
+
       try {
-        const resposta = await fetch(
-          `http://localhost:8080/api/filmes/pesquisar?nome=${encodeURIComponent(termo)}`,
-        );
-        const filmes = await resposta.json();
-        if (filmes.length === 0) {
+        const responseUsuario = await fetch(`${API_URL}/api/Usuarios/${userId}`);
+
+        if (responseUsuario.ok) {
+          const usuario = await responseUsuario.json();
+          const elementoAvatar = document.getElementById("avatar-menu");
+
+          if (usuario.fotoPerfil && usuario.fotoPerfil.trim() !== "") {
+            elementoAvatar.style.backgroundImage = `url('${usuario.fotoPerfil}')`;
+            elementoAvatar.style.backgroundSize = "cover";
+            elementoAvatar.style.backgroundPosition = "center";
+            elementoAvatar.innerHTML = "";
+          } else {
+            elementoAvatar.style.backgroundImage = "none";
+          }
+        }
+      } catch (erro) {
+        console.error("Erro ao carregar avatar:", erro);
+      }
+
+      fetch(`${API_URL}/api/filmes/lista/${userId}/QUERO_ASSISTIR`)
+        .then((res) => res.json())
+        .then((dados) => {
+          const container = document.getElementById("lista-pessoal");
+
+          if (dados.length === 0) {
+            container.innerHTML =
+              "<p style='color:#666; font-size:0.95rem;'>Sua lista está vazia por enquanto.</p>";
+            return;
+          }
+
+          container.innerHTML = "";
+
+          dados.forEach((filme) => {
+            const urlImagem =
+              filme.imagemUrl && !filme.imagemUrl.includes("null")
+                ? filme.imagemUrl
+                : "assets/img/rolo-filme.png";
+
+            container.innerHTML += `
+            <div style="min-width: 260px; max-width: 260px; height: 150px; border-radius: 8px; overflow: hidden; position: relative; cursor: pointer; transition: transform 0.2s;"
+                 onclick="window.location.href='detalhes.html?id=${filme.idExterno}&tipo=${encodeURIComponent(filme.genero)}'"
+                 onmouseenter="this.style.transform='scale(1.03)'"
+                 onmouseleave="this.style.transform='scale(1)'">
+              <div style="background-image: url('${urlImagem}'); background-size: cover; background-position: center; width: 100%; height: 100%;"></div>
+              <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 80%);"></div>
+              <div style="position: absolute; bottom: 10px; left: 12px; right: 12px; color: white;">
+                <h3 style="font-size: 1rem; font-weight: bold; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${filme.titulo}</h3>
+              </div>
+            </div>
+          `;
+          });
+        })
+        .catch((err) => console.error(err));
+
+      const campoPesquisa = document.getElementById("search");
+      const caixaSugestoes = document.getElementById("search-suggestions");
+
+      campoPesquisa.addEventListener("input", async () => {
+        const termo = campoPesquisa.value.trim();
+
+        if (termo.length < 2) {
           caixaSugestoes.style.display = "none";
           return;
         }
-        caixaSugestoes.innerHTML = "";
-        caixaSugestoes.style.display = "block";
-        filmes.slice(0, 5).forEach((filme) => {
-          const item = document.createElement("div");
-          item.style =
-            "padding: 10px; cursor: pointer; color: white; border-bottom: 1px solid #222; font-size: 14px;";
-          item.textContent = filme.titulo;
-          item.addEventListener("click", () => {
-            window.location.href = `pesquisa.html?busca=${encodeURIComponent(filme.titulo)}`;
+
+        try {
+          const resposta = await fetch(
+            `${API_URL}/api/filmes/pesquisar?nome=${encodeURIComponent(termo)}`
+          );
+
+          const filmes = await resposta.json();
+
+          if (filmes.length === 0) {
+            caixaSugestoes.style.display = "none";
+            return;
+          }
+
+          caixaSugestoes.innerHTML = "";
+          caixaSugestoes.style.display = "block";
+
+          filmes.slice(0, 5).forEach((filme) => {
+            const item = document.createElement("div");
+
+            item.style =
+              "padding: 10px; cursor: pointer; color: white; border-bottom: 1px solid #222; font-size: 14px;";
+
+            item.textContent = filme.titulo;
+
+            item.addEventListener("click", () => {
+              window.location.href = `pesquisa.html?busca=${encodeURIComponent(filme.titulo)}`;
+            });
+
+            item.onmouseenter = () =>
+              (item.style.background = "var(--primary-color, #6200ee)");
+
+            item.onmouseleave = () =>
+              (item.style.background = "transparent");
+
+            caixaSugestoes.appendChild(item);
           });
-          item.onmouseenter = () =>
-            (item.style.background = "var(--primary-color, #6200ee)");
-          item.onmouseleave = () => (item.style.background = "transparent");
-          caixaSugestoes.appendChild(item);
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    });
+        } catch (e) {
+          console.error(e);
+        }
+      });
 
-    campoPesquisa.addEventListener("keypress", (evento) => {
-      if (evento.key === "Enter") {
-        const termo = campoPesquisa.value.trim();
-        if (termo !== "")
-          window.location.href = `pesquisa.html?busca=${encodeURIComponent(termo)}`;
-      }
-    });
+      campoPesquisa.addEventListener("keypress", (evento) => {
+        if (evento.key === "Enter") {
+          const termo = campoPesquisa.value.trim();
 
-    document.addEventListener("click", (e) => {
-      if (e.target !== campoPesquisa && e.target !== caixaSugestoes)
-        caixaSugestoes.style.display = "none";
+          if (termo !== "") {
+            window.location.href = `pesquisa.html?busca=${encodeURIComponent(termo)}`;
+          }
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (e.target !== campoPesquisa && e.target !== caixaSugestoes) {
+          caixaSugestoes.style.display = "none";
+        }
+      });
     });
-  });
-</script>
+  </script>
 </body>
+
 </html>

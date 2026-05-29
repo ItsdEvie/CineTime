@@ -1,78 +1,63 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="/assets/img/logo.webp"
-      type="image/x-icon"
-    />
-    <link rel="stylesheet" href="/assets/css/root.css" />
-    <link rel="stylesheet" href="/assets/css/salas.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>CineTime</title>
-  </head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/assets/img/logo.webp" type="image/x-icon" />
+  <link rel="stylesheet" href="/assets/css/root.css" />
+  <link rel="stylesheet" href="/assets/css/salas.css" />
 
-  <body>
-    <header class="cine-header">
-      <button
-        class="header-icon"
-        id="btn-header-action"
-        title="Voltar / Início"
-        aria-label="Ação de navegação"
-      >
-        <a href="home.html" style="color: var(--font-color1)">
-          <svg
-            width="23"
-            height="23"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            <polyline points="9 22 9 12 15 12 15 22" />
-          </svg>
-        </a>
-      </button>
+  <title>CineTime</title>
+</head>
 
-      <div class="logo">
-        <img src="assets/img/logo.webp" alt="Logo CineTime" />
-        <span class="header-logo">Cine</span>
-        <span class="roxo">Time</span>
-      </div>
-    </header>
+<body>
+  <header class="cine-header">
+    <button class="header-icon" id="btn-header-action" title="Voltar / Início" aria-label="Ação de navegação">
+      <a href="home.html" style="color: var(--font-color1)">
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+      </a>
+    </button>
 
-    <main class="main" id="listaSalas"></main>
+    <div class="logo">
+      <img src="assets/img/logo.webp" alt="Logo CineTime" />
+      <span class="header-logo">Cine</span>
+      <span class="roxo">Time</span>
+    </div>
+  </header>
 
-    <script>
-      const listaSalas = document.getElementById("listaSalas");
+  <main class="main" id="listaSalas"></main>
 
-      async function carregarSalas() {
-        try {
-          const response = await fetch("http://localhost:8080/api/salas");
+  <script>
+    const API_URL = "https://cinetime-production-6087.up.railway.app";
+    const listaSalas = document.getElementById("listaSalas");
 
-          const salas = await response.json();
+    async function carregarSalas() {
+      try {
+        const response = await fetch(`${API_URL}/api/salas`);
 
-          listaSalas.innerHTML = "";
+        const salas = await response.json();
 
-          if (salas.length === 0) {
-            listaSalas.innerHTML = `
+        listaSalas.innerHTML = "";
+
+        if (salas.length === 0) {
+          listaSalas.innerHTML = `
                   <p class="salas-empty">
                       Nenhuma sala criada.
                   </p>
               `;
 
-            return;
-          }
+          return;
+        }
 
-          salas.forEach((sala) => {
-            listaSalas.innerHTML += `
+        salas.forEach((sala) => {
+          listaSalas.innerHTML += `
 
               <div class="sala">
 
@@ -126,74 +111,74 @@
               </div>
 
               `;
-          });
-        } catch (error) {
-          console.error(error);
+        });
+      } catch (error) {
+        console.error(error);
 
-          listaSalas.innerHTML = `
+        listaSalas.innerHTML = `
               <p class="salas-empty">
                   Erro ao carregar salas.
               </p>
           `;
-        }
       }
+    }
 
-      async function entrarSala(id, senha) {
-        try {
-          const response = await fetch(
-            `http://localhost:8080/api/salas/${id}/entrar`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                senha: senha,
-              }),
+    async function entrarSala(id, senha) {
+      try {
+        const response = await fetch(`${API_URL}/api/salas/${id}/entrar`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
             },
-          );
+            body: JSON.stringify({
+              senha: senha,
+            }),
+          },
+        );
 
-          if (!response.ok) {
-            const erro = await response.text();
+        if (!response.ok) {
+          const erro = await response.text();
 
-            if (erro.includes("Senha incorreta")) {
-              alert("Senha incorreta!");
-              return;
-            }
-
-            if (erro.includes("Sala cheia")) {
-              alert("Sala cheia!");
-              return;
-            }
-
-            alert("Erro ao entrar na sala.");
+          if (erro.includes("Senha incorreta")) {
+            alert("Senha incorreta!");
             return;
           }
 
-          window.location.href = `/sala/${id}`;
-        } catch (error) {
-          console.error(error);
-          alert("Erro ao entrar na sala.");
-        }
-      }
+          if (erro.includes("Sala cheia")) {
+            alert("Sala cheia!");
+            return;
+          }
 
-      function verificarEntrada(id, visivel) {
-        if (visivel) {
-          entrarSala(id, null);
+          alert("Erro ao entrar na sala.");
           return;
         }
 
-        const senhaDigitada = prompt("Digite a senha da sala:");
+        window.location.href = `sala.html?id=${id}`;
+      } catch (error) {
+        console.error(error);
+        alert("Erro ao entrar na sala.");
+      }
+    }
 
-        if (senhaDigitada === null) return;
-
-        entrarSala(id, senhaDigitada);
+    function verificarEntrada(id, visivel) {
+      if (visivel) {
+        entrarSala(id, null);
+        return;
       }
 
-      carregarSalas();
+      const senhaDigitada = prompt("Digite a senha da sala:");
 
-      // atualiza automaticamente
-      setInterval(carregarSalas, 5000);
-    </script>
-  </body>
+      if (senhaDigitada === null) return;
+
+      entrarSala(id, senhaDigitada);
+    }
+
+    carregarSalas();
+
+    // atualiza automaticamente
+    setInterval(carregarSalas, 5000);
+  </script>
+</body>
+
 </html>

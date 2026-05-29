@@ -1,138 +1,112 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="/assets/img/logo.webp"
-      type="image/x-icon"
-    />
-    <link
-      rel="stylesheet"
-      href="/assets/css/root.css"
-    />
-    <link
-      rel="stylesheet"
-      href="/assets/css/login.css"
-    />
 
-    <title>Faça Login na CineTime!</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/assets/img/logo.webp" type="image/x-icon" />
+  <link rel="stylesheet" href="/assets/css/root.css" />
+  <link rel="stylesheet" href="/assets/css/login.css" />
 
-  <body>
-    <a href="/index.html">
-      <svg
-        style="color: var(--font-color1)"
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        fill="currentColor"
-        class="bi bi-arrow-left"
-        viewBox="0 0 14 14"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
-        />
-      </svg>
-    </a>
-    <main>
-      <section>
-        <div class="container-lado-esquerdo-login">
-          <div class="logo">
-            <img
-              src="/assets/img/logo.webp"
-              alt="logo"
-            />
-            <h1>Cine</h1>
-            <h1 class="roxo">Time</h1>
-          </div>
-          <h2>
-            Bem-Vindo(a). <br />
-            Sua sala de cinema, <br />
-            em qualquer lugar.
-          </h2>
+  <title>Faça Login na CineTime!</title>
+</head>
+
+<body>
+  <a href="/index.html">
+    <svg style="color: var(--font-color1)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+      class="bi bi-arrow-left" viewBox="0 0 14 14">
+      <path fill-rule="evenodd"
+        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+    </svg>
+  </a>
+  <main>
+    <section>
+      <div class="container-lado-esquerdo-login">
+        <div class="logo">
+          <img src="/assets/img/logo.webp" alt="logo" />
+          <h1>Cine</h1>
+          <h1 class="roxo">Time</h1>
         </div>
+        <h2>
+          Bem-Vindo(a). <br />
+          Sua sala de cinema, <br />
+          em qualquer lugar.
+        </h2>
+      </div>
 
-        <form>
-          <h1>LOGIN</h1>
-          <div class="input">
-            <label for="email">Email:</label>
-            <input
-              type="email"
-              required
-              id="email"
-              name="email"
-              placeholder="Digite seu email:"
-            />
-          </div>
-          <div class="input">
-            <label for="senha">Senha:</label>
-            <input
-              type="password"
-              required
-              id="senha"
-              name="senha"
-              placeholder="Digite sua senha:"
-            />
-            <p>
-              Ou <strong><a href="/cadastro.html">Cadastre-se</a></strong>
-            </p>
-          </div>
-          <input id="submit" type="submit" />
-        </form>
-      </section>
-    </main>
-  </body>
+      <form>
+        <h1>LOGIN</h1>
+        <div class="input">
+          <label for="email">Email:</label>
+          <input type="email" required id="email" name="email" placeholder="Digite seu email:" />
+        </div>
+        <div class="input">
+          <label for="senha">Senha:</label>
+          <input type="password" required id="senha" name="senha" placeholder="Digite sua senha:" />
+          <p>
+            Ou <strong><a href="/cadastro.html">Cadastre-se</a></strong>
+          </p>
+        </div>
+        <input id="submit" type="submit" />
+      </form>
+    </section>
+  </main>
+</body>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.querySelector("form");
+<script>
+  const API_URL = "https://cinetime-production-6087.up.railway.app";
 
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault();
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("form");
 
-        const email = document.getElementById("email").value;
-        const senha = document.getElementById("senha").value;
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
 
-        const dadosLogin = {
-          email: document.getElementById("email").value,
-          senha: document.getElementById("senha").value,
-        };
+      const dadosLogin = {
+        email: document.getElementById("email").value,
+        senha: document.getElementById("senha").value,
+      };
 
-        try {
-          const response = await fetch(
-            "http://localhost:8080/api/Usuarios/login",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(dadosLogin),
+      try {
+        const response = await fetch(
+          `${API_URL}/api/Usuarios/login`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-          );
-
-          if (response.ok) {
-            const result = await response.json();
-            console.log("USUARIO:", result);
-            console.log("ID USUARIO:", result.id);
-            localStorage.setItem("userId", result.id);
-            console.log("SALVO:", localStorage.getItem("userId"));
-
-            alert("Login realizado com sucesso!");
-
-           window.location.href = "home.html";
-          } else if (response.status === 401) {
-            alert("Email ou senha inválidos!");
-          } else {
-            alert("Erro ao tentar fazer login.");
+            body: JSON.stringify(dadosLogin),
           }
-        } catch (error) {
-          console.error("Erro na requisição:", error);
-          alert("Não foi possível conectar ao servidor.");
+        );
+
+        if (response.ok) {
+          const result = await response.json();
+
+          localStorage.setItem("userId", result.id);
+
+          alert("Login realizado com sucesso!");
+
+          window.location.href = "home.html";
+
+        } else if (response.status === 401) {
+
+          alert("Email ou senha inválidos!");
+
+        } else {
+
+          alert("Erro ao tentar fazer login.");
+
         }
-      });
+
+      } catch (error) {
+
+        console.error("Erro na requisição:", error);
+
+        alert("Não foi possível conectar ao servidor.");
+
+      }
     });
-  </script>
+  });
+</script>
+
 </html>

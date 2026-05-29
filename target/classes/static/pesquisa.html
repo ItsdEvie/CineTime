@@ -46,6 +46,7 @@
 </main>
 
 <script>
+    const API_URL = "https://cinetime-production-6087.up.railway.app";
     document.addEventListener("DOMContentLoaded", async () => {
         // 1. Pega o termo que veio na URL (ex: ?busca=crepusculo)
         const parametrosUrl = new URLSearchParams(window.location.search);
@@ -82,7 +83,7 @@
 
         try {
             // 2. Faz a chamada para a sua API Java
-            const resposta = await fetch(`http://localhost:8080/api/filmes/pesquisar?nome=${encodeURIComponent(termoBusca)}`);
+            const resposta = await fetch(`${API_URL}/api/filmes/pesquisar?nome=${encodeURIComponent(termoBusca)}`);
             if (!resposta.ok) throw new Error();
 
             const filmes = await resposta.json();

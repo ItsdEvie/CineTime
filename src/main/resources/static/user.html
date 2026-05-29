@@ -67,11 +67,12 @@
   </main>
 
   <script>
+    const API_URL = "https://cinetime-production-6087.up.railway.app";
     document.addEventListener("DOMContentLoaded", async () => {
       const userId = localStorage.getItem("userId");
 
       if (!userId) {
-        window.location.href = "/login.html";
+        window.location.href = "login.html";
         return;
       }
 
@@ -83,7 +84,7 @@
     async function carregarUsuario(userId) {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/Usuarios/${userId}`,
+          `${API_URL}/api/Usuarios/${userId}`,
         );
 
         if (!response.ok) {
@@ -116,7 +117,7 @@
 
       try {
         const response = await fetch(
-          `http://localhost:8080/api/filmes/assistidos/${userId}`,
+          `${API_URL}/api/filmes/assistidos/${userId}`,
         );
 
         if (!response.ok) {
@@ -151,7 +152,7 @@
 
       try {
         const response = await fetch(
-          `http://localhost:8080/api/filmes/favoritos/${userId}`,
+          `${API_URL}/api/filmes/favoritos/${userId}`,
         );
 
         if (!response.ok) {
@@ -188,11 +189,11 @@
         const imagem =
           filme.imagemUrl && !filme.imagemUrl.includes("null")
             ? filme.imagemUrl
-            : "/assets/img/rolo-filme.png";
+            : "assets/img/rolo-filme.png";
 
         container.innerHTML += `
           <div class="movie-card"
-               onclick="window.location.href='/detalhes.html?id=${filme.idExterno}&tipo=${encodeURIComponent(filme.genero)}'"
+               onclick="window.location.href='detalhes.html?id=${filme.idExterno}&tipo=${encodeURIComponent(filme.genero)}'"
                style="cursor:pointer;">
 
             <div class="movie-thumb"
