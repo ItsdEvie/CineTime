@@ -1,11 +1,16 @@
 package com.Spring.Cinetime.Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "filmes")
 public class Filme {
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,33 +40,88 @@ public class Filme {
     }
 
     // Getters e Setters
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getTitulo() { return titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
+    public String getTitulo() {
+        return titulo;
+    }
 
-    public String getGenero() { return genero; }
-    public void setGenero(String genero) { this.genero = genero; }
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
-    public String getImagemUrl() { return imagemUrl; }
-    public void setImagemUrl(String imagemUrl) { this.imagemUrl = imagemUrl; }
+    public String getGenero() {
+        return genero;
+    }
 
-    public String getSinopse() { return sinopse; }
-    public void setSinopse(String sinopse) { this.sinopse = sinopse; }
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
 
-    public String getAnoLancamento() { return anoLancamento; }
-    public void setAnoLancamento(String anoLancamento) { this.anoLancamento = anoLancamento; }
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
 
-    public String getDuracao() { return duracao; }
-    public void setDuracao(String duracao) { this.duracao = duracao; }
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
+    }
 
-    public Integer getNumeroTemporadas() { return numeroTemporadas; }
-    public void setNumeroTemporadas(Integer numeroTemporadas) { this.numeroTemporadas = numeroTemporadas; }
+    public String getSinopse() {
+        return sinopse;
+    }
 
-    public String getStatusLista() { return statusLista;}
-    public void setStatusLista(String statusLista) { this.statusLista = statusLista; }
+    public void setSinopse(String sinopse) {
+        this.sinopse = sinopse;
+    }
 
-    public Long getIdExterno() { return idExterno; }
-    public void setIdExterno(Long idExterno) { this.idExterno = idExterno; }
+    public String getAnoLancamento() {
+        return anoLancamento;
+    }
+
+    public void setAnoLancamento(String anoLancamento) {
+        this.anoLancamento = anoLancamento;
+    }
+
+    public String getDuracao() {
+        return duracao;
+    }
+
+    public void setDuracao(String duracao) {
+        this.duracao = duracao;
+    }
+
+    public Integer getNumeroTemporadas() {
+        return numeroTemporadas;
+    }
+
+    public void setNumeroTemporadas(Integer numeroTemporadas) {
+        this.numeroTemporadas = numeroTemporadas;
+    }
+
+    public String getStatusLista() {
+        return statusLista;
+    }
+
+    public void setStatusLista(String statusLista) {
+        this.statusLista = statusLista;
+    }
+
+    public Long getIdExterno() {
+        return idExterno;
+    }
+
+    public void setIdExterno(Long idExterno) {
+        this.idExterno = idExterno;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
 }

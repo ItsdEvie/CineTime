@@ -2,6 +2,7 @@ package com.Spring.Cinetime.Controller;
 
 import com.Spring.Cinetime.Dto.LoginDTO;
 import com.Spring.Cinetime.Dto.UsuarioRequestDTO;
+import com.Spring.Cinetime.Dto.UsuarioUpdateDTO;
 import com.Spring.Cinetime.Model.Usuario;
 import com.Spring.Cinetime.Service.UsuarioService;
 import jakarta.validation.Valid;
@@ -46,7 +47,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable Long id, @Valid @RequestBody UsuarioRequestDTO dto) {
+    public ResponseEntity<Usuario> update(@PathVariable Long id, @Valid @RequestBody UsuarioUpdateDTO dto) {
 
         return ResponseEntity.ok(service.update(id, dto));
     }

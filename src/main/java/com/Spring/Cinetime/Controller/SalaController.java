@@ -3,6 +3,7 @@ package com.Spring.Cinetime.Controller;
 import com.Spring.Cinetime.Dto.SalaRequestDTO;
 import com.Spring.Cinetime.Model.Sala;
 import com.Spring.Cinetime.Service.SalaService;
+import com.Spring.Cinetime.Dto.EntrarSalaDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,8 +46,7 @@ public class SalaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Sala createSala(
-            @RequestBody SalaRequestDTO dto
-    ) {
+            @RequestBody SalaRequestDTO dto) {
 
         return salaService.createSala(dto);
 
@@ -57,11 +57,12 @@ public class SalaController {
     // =========================
     @PutMapping("/{id}/entrar")
     public Sala entrarSala(
-            @PathVariable Long id
-    ) {
+            @PathVariable Long id,
+            @RequestBody(required = false) EntrarSalaDTO dto) {
 
-        return salaService.entrarSala(id);
+        String senha = dto != null ? dto.senha() : null;
 
+        return salaService.entrarSala(id, senha);
     }
 
     // =========================
@@ -84,8 +85,7 @@ public class SalaController {
     // =========================
     @DeleteMapping("/{id}")
     public void deleteSala(
-            @PathVariable Long id
-    ) {
+            @PathVariable Long id) {
 
         salaService.deleteSala(id);
 

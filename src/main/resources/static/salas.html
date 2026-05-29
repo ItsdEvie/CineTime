@@ -1,64 +1,78 @@
 <!doctype html>
 <html lang="pt-br">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="/assets/img/logo.webp" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="/assets/img/logo.webp"
+      type="image/x-icon"
+    />
     <link rel="stylesheet" href="/assets/css/root.css" />
     <link rel="stylesheet" href="/assets/css/salas.css" />
 
     <title>CineTime</title>
-</head>
+  </head>
 
-<body>
-<header class="cine-header">
-    <button class="header-icon" id="btn-header-action" title="Voltar / Início" aria-label="Ação de navegação">
-        <a href="home.html" style="color: var(--font-color1);">
-            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" />
-            </svg>
+  <body>
+    <header class="cine-header">
+      <button
+        class="header-icon"
+        id="btn-header-action"
+        title="Voltar / Início"
+        aria-label="Ação de navegação"
+      >
+        <a href="home.html" style="color: var(--font-color1)">
+          <svg
+            width="23"
+            height="23"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
         </a>
-    </button>
+      </button>
 
-    <div class="logo">
-        <img src="assets/img/logo.webp" alt="Logo CineTime">
+      <div class="logo">
+        <img src="assets/img/logo.webp" alt="Logo CineTime" />
         <span class="header-logo">Cine</span>
         <span class="roxo">Time</span>
-    </div>
-</header>
+      </div>
+    </header>
 
-<main class="main" id="listaSalas">
+    <main class="main" id="listaSalas"></main>
 
+    <script>
+      const listaSalas = document.getElementById("listaSalas");
 
-</main>
+      async function carregarSalas() {
+        try {
+          const response = await fetch("http://localhost:8080/api/salas");
 
-<script>
-    const listaSalas = document.getElementById("listaSalas");
+          const salas = await response.json();
 
-    async function carregarSalas() {
-      try {
-        const response = await fetch("http://localhost:8080/api/salas");
+          listaSalas.innerHTML = "";
 
-        const salas = await response.json();
-
-        listaSalas.innerHTML = "";
-
-        if (salas.length === 0) {
-          listaSalas.innerHTML = `
+          if (salas.length === 0) {
+            listaSalas.innerHTML = `
                   <p class="salas-empty">
                       Nenhuma sala criada.
                   </p>
               `;
 
-          return;
-        }
+            return;
+          }
 
-        salas.forEach((sala) => {
-          listaSalas.innerHTML += `
+          salas.forEach((sala) => {
+            listaSalas.innerHTML += `
 
               <div class="sala">
 
@@ -100,7 +114,6 @@
                       <button class="btn-entrar"
                           onclick="verificarEntrada(
                               ${sala.id},
-                              '${sala.senha || ""}',
                               ${sala.visivel}
                           )">
 
@@ -113,58 +126,74 @@
               </div>
 
               `;
-        });
-      } catch (error) {
-        console.error(error);
+          });
+        } catch (error) {
+          console.error(error);
 
-        listaSalas.innerHTML = `
+          listaSalas.innerHTML = `
               <p class="salas-empty">
                   Erro ao carregar salas.
               </p>
           `;
-      }
-    }
-
-    async function entrarSala(id) {
-      try {
-        await fetch(`http://localhost:8080/api/salas/${id}/entrar`, {
-          method: "PUT",
-        });
-
-        window.location.href = `/sala/${id}`;
-      } catch (error) {
-        console.error(error);
-
-        alert("Erro ao entrar na sala.");
-      }
-    }
-
-    function verificarEntrada(id, senhaSala, visivel) {
-      // sala pública
-      if (visivel) {
-        entrarSala(id);
-
-        return;
+        }
       }
 
-      // privada
-      const senhaDigitada = prompt("Digite a senha da sala:");
+      async function entrarSala(id, senha) {
+        try {
+          const response = await fetch(
+            `http://localhost:8080/api/salas/${id}/entrar`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                senha: senha,
+              }),
+            },
+          );
 
-      if (senhaDigitada === null) return;
+          if (!response.ok) {
+            const erro = await response.text();
 
-      if (senhaDigitada !== senhaSala) {
-        alert("Senha incorreta!");
+            if (erro.includes("Senha incorreta")) {
+              alert("Senha incorreta!");
+              return;
+            }
 
-        return;
+            if (erro.includes("Sala cheia")) {
+              alert("Sala cheia!");
+              return;
+            }
+
+            alert("Erro ao entrar na sala.");
+            return;
+          }
+
+          window.location.href = `/sala/${id}`;
+        } catch (error) {
+          console.error(error);
+          alert("Erro ao entrar na sala.");
+        }
       }
 
-      entrarSala(id);
-    }
+      function verificarEntrada(id, visivel) {
+        if (visivel) {
+          entrarSala(id, null);
+          return;
+        }
 
-    carregarSalas();
+        const senhaDigitada = prompt("Digite a senha da sala:");
 
-    // atualiza automaticamente
-    setInterval(carregarSalas, 5000);
-</script>
-</body>
+        if (senhaDigitada === null) return;
+
+        entrarSala(id, senhaDigitada);
+      }
+
+      carregarSalas();
+
+      // atualiza automaticamente
+      setInterval(carregarSalas, 5000);
+    </script>
+  </body>
 </html>

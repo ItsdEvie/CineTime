@@ -1,11 +1,12 @@
 package com.Spring.Cinetime.Exception;
 
 public class UsuarioNotFoundException extends RuntimeException {
-    public UsuarioNotFoundException(Long message) {
-      super("Usuario não encontrado");
+
+    public UsuarioNotFoundException(Long id) {
+        super("Usuário não encontrado com ID: " + id);
     }
 
     public UsuarioNotFoundException(String message) {
-        super("Usuario não encontrado");
+        super(message);
     }
 }

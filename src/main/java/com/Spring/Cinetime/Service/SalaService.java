@@ -33,8 +33,7 @@ public class SalaService {
     public Sala findById(Long id) {
 
         return salaRepository.findById(id)
-                .orElseThrow(() ->
-                        new SalaNotFoundException(id));
+                .orElseThrow(() -> new SalaNotFoundException(id));
 
     }
 
@@ -68,27 +67,27 @@ public class SalaService {
     // =========================
     // ENTRAR NA SALA
     // =========================
-    public Sala entrarSala(Long salaId) {
+    public Sala entrarSala(Long salaId, String senhaDigitada) {
 
         Sala sala = findById(salaId);
 
-        // verifica limite
-        if (sala.getParticipantesAtual()
-                >= sala.getParticipantesMax()) {
+        if (!sala.getVisivel()) {
 
-            throw new RuntimeException(
-                    "Sala cheia");
+            if (senhaDigitada == null || !senhaDigitada.equals(sala.getSenha())) {
+                throw new RuntimeException("Senha incorreta");
+            }
+        }
 
+        if (sala.getParticipantesAtual() >= sala.getParticipantesMax()) {
+            throw new RuntimeException("Sala cheia");
         }
 
         sala.setParticipantesAtual(
-                sala.getParticipantesAtual() + 1
-        );
+                sala.getParticipantesAtual() + 1);
 
         sala.setUltimaAtividade(System.currentTimeMillis());
 
         return salaRepository.save(sala);
-
     }
 
     // =========================
@@ -100,8 +99,7 @@ public class SalaService {
 
         // remove participante
         sala.setParticipantesAtual(
-                sala.getParticipantesAtual() - 1
-        );
+                sala.getParticipantesAtual() - 1);
         sala.setUltimaAtividade(System.currentTimeMillis());
 
         // =========================
@@ -125,11 +123,10 @@ public class SalaService {
         // SALA PÚBLICA
         // =========================
         if (sala.getParticipantesAtual() <= 0) {
-
-            salaRepository.delete(sala);
-
+            sala.setParticipantesAtual(0);
+            sala.setUltimaAtividade(System.currentTimeMillis());
+            salaRepository.save(sala);
             return;
-
         }
 
         salaRepository.save(sala);
@@ -147,7 +144,7 @@ public class SalaService {
 
     }
 
-    //Remover a sala Apos 1 minuto
+    // Remover a sala Apos 1 minuto
 
     @Scheduled(fixedRate = 10000)
     public void removerSalasInativas() {
@@ -158,19 +155,16 @@ public class SalaService {
 
         for (Sala sala : salas) {
 
-            boolean salaVazia =
-                    sala.getParticipantesAtual() <= 0;
+            boolean salaVazia = sala.getParticipantesAtual() <= 0;
 
-            boolean passouTempo =
-                    agora - sala.getUltimaAtividade() >= 60000;
+            boolean passouTempo = agora - sala.getUltimaAtividade() >= 60000;
 
             if (salaVazia && passouTempo) {
 
                 salaRepository.delete(sala);
 
                 System.out.println(
-                        "Sala removida: " + sala.getNome()
-                );
+                        "Sala removida: " + sala.getNome());
             }
         }
     }

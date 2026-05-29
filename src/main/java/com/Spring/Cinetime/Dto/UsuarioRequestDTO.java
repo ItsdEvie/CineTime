@@ -22,6 +22,8 @@ public record UsuarioRequestDTO(
         String senha,
 
         @NotBlank(message = "Confirmação da senha é obrigatória")
-        String confirmarSenha
+        String confirmarSenha,
 
+        String biografia,
+        String fotoPerfil
 ) {}

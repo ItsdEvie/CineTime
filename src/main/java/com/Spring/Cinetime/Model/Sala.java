@@ -1,6 +1,7 @@
 package com.Spring.Cinetime.Model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "salas")
@@ -96,6 +97,7 @@ public class Sala {
         this.visivel = visivel;
     }
 
+    @JsonIgnore
     public String getSenha() {
         return senha;
     }

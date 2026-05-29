@@ -28,15 +28,20 @@ public class FilmeController {
         return ResponseEntity.ok(filme);
     }
 
-    @PostMapping("/salvar")
-    public ResponseEntity<?> salvarFilme(@RequestBody Filme filme) {
-        filmeService.salvarFilme(filme);
+    @PostMapping("/salvar/{usuarioId}")
+    public ResponseEntity<?> salvarFilme(
+            @PathVariable Long usuarioId,
+            @RequestBody Filme filme
+    ) {
+        filmeService.salvarFilme(usuarioId, filme);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/minha-lista")
-    public ResponseEntity<List<Filme>> obterMinhaLista() {
-        List<Filme> filmes = filmeService.listarMinhaLista();
+    @GetMapping("/minha-lista/{usuarioId}")
+    public ResponseEntity<List<Filme>> obterMinhaLista(
+            @PathVariable Long usuarioId
+    ) {
+        List<Filme> filmes = filmeService.listarMinhaLista(usuarioId);
         return ResponseEntity.ok(filmes);
     }
 }
