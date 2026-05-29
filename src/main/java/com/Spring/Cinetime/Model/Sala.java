@@ -37,6 +37,9 @@ public class Sala {
     @Column(nullable = false)
     private Long donoId;
 
+    @Column(nullable = false)
+    private Long ultimaAtividade;
+
     public Sala() {
     }
 
@@ -57,6 +60,7 @@ public class Sala {
         this.participantesMax = participantesMax;
         this.participantesAtual = participantesAtual;
         this.donoId = donoId;
+        this.ultimaAtividade = System.currentTimeMillis();;
 
     }
 
@@ -123,4 +127,8 @@ public class Sala {
     public void setDonoId(Long donoId) {
         this.donoId = donoId;
     }
+
+    public Long getUltimaAtividade() {return ultimaAtividade;}
+
+    public void setUltimaAtividade(Long ultimaAtividade) {this.ultimaAtividade = ultimaAtividade;}
 }

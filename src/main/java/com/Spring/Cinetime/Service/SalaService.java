@@ -1,5 +1,6 @@
 package com.Spring.Cinetime.Service;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import com.Spring.Cinetime.Dto.SalaRequestDTO;
 import com.Spring.Cinetime.Exception.SalaNotFoundException;
 import com.Spring.Cinetime.Model.Sala;
@@ -84,6 +85,8 @@ public class SalaService {
                 sala.getParticipantesAtual() + 1
         );
 
+        sala.setUltimaAtividade(System.currentTimeMillis());
+
         return salaRepository.save(sala);
 
     }
@@ -99,6 +102,7 @@ public class SalaService {
         sala.setParticipantesAtual(
                 sala.getParticipantesAtual() - 1
         );
+        sala.setUltimaAtividade(System.currentTimeMillis());
 
         // =========================
         // SALA PRIVADA
@@ -141,6 +145,34 @@ public class SalaService {
 
         salaRepository.deleteById(id);
 
+    }
+
+    //Remover a sala Apos 1 minuto
+
+    @Scheduled(fixedRate = 10000)
+    public void removerSalasInativas() {
+
+        List<Sala> salas = salaRepository.findAll();
+
+        long agora = System.currentTimeMillis();
+
+        for (Sala sala : salas) {
+
+            boolean salaVazia =
+                    sala.getParticipantesAtual() <= 0;
+
+            boolean passouTempo =
+                    agora - sala.getUltimaAtividade() >= 60000;
+
+            if (salaVazia && passouTempo) {
+
+                salaRepository.delete(sala);
+
+                System.out.println(
+                        "Sala removida: " + sala.getNome()
+                );
+            }
+        }
     }
 
 }

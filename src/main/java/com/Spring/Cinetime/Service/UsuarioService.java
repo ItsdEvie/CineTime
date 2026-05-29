@@ -50,7 +50,7 @@ public class UsuarioService {
 
         return usuarioRepository.save(usuario);
     }
-    
+
     public void delete(Long id){
         findById(id);
         usuarioRepository.deleteById(id);
