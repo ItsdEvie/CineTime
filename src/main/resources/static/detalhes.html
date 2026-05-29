@@ -1,223 +1,219 @@
 <!doctype html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="assets/css/root.css" />
-  <link rel="stylesheet" href="assets/css/home.css" />
-  <link rel="stylesheet" href="assets/css/detalhes.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/root.css" />
+    <link rel="stylesheet" href="assets/css/home.css" />
+    <link rel="stylesheet" href="assets/css/detalhes.css" />
 
-  <link rel="shortcut icon" href="assets/img/logo.webp" type="image/x-icon" />
-  <title>CineTime - Detalhes</title>
-</head>
-<body>
-<header>
-  <div
-          class="logo"
-          style="cursor: pointer"
-          onclick="window.location.href = 'home.html'"
-  >
-    <img src="assets/img/logo.webp" alt="CineTime-logo" />
-    <h1>Cine</h1>
-    <h1 class="roxo">Time</h1>
-  </div>
+    <link rel="shortcut icon" href="assets/img/logo.webp" type="image/x-icon" />
+    <title>CineTime - Detalhes</title>
+  </head>
+  <body>
+    <header>
+      <div
+        class="logo"
+        style="cursor: pointer"
+        onclick="window.location.href = 'home.html'"
+      >
+        <img src="assets/img/logo.webp" alt="CineTime-logo" />
+        <h1>Cine</h1>
+        <h1 class="roxo">Time</h1>
+      </div>
 
-  <div
-          class="avatar-header"
-          id="avatar-menu"
-          onclick="window.location.href = 'user.html'"
-          title="Ir para o Perfil">
+      <div
+        class="avatar-header"
+        id="avatar-menu"
+        onclick="window.location.href = 'user.html'"
+        title="Ir para o Perfil"
+      ></div>
+    </header>
 
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-  </svg>
-  </div>
-</header>
-
-<main>
-  <div
-          style="
+    <main>
+      <div
+        style="
           color: #b3b3b3;
           font-weight: 600;
           cursor: pointer;
           margin-bottom: 20px;
           transition: 0.2s;
         "
-          onclick="window.history.back()"
-          onmouseover="this.style.color = 'var(--primary-color)'"
-          onmouseout="this.style.color = '#b3b3b3'"
-  >
-    ← Voltar
-  </div>
-
-  <div class="area-poster">
-    <div class="poster-gigante" id="filme-poster"></div>
-  </div>
-
-  <div class="area-info">
-    <h1 id="filme-titulo">Carregando...</h1>
-    <div class="metadados">
-      <span id="filme-ano">-</span>
-      <span id="filme-duracao">-</span>
-    </div>
-
-    <div class="sinopse-titulo">Sinopse</div>
-    <p class="sinopse-texto" id="filme-sinopse">
-      Carregando detalhes do filme...
-    </p>
-
-    <div class="botoes-lista">
-      <button class="btn-lista" onclick="salvarNasListas('QUERO_ASSISTIR')">
-        🍿 Quero Assistir
-      </button>
-      <button class="btn-lista" onclick="salvarNasListas('ASSISTIDO')">
-        ✅ Já Assistido
-      </button>
-      <button
-              class="btn-lista btn-favorito"
-              onclick="salvarNasListas('FAVORITO')"
+        onclick="window.history.back()"
+        onmouseover="this.style.color = 'var(--primary-color)'"
+        onmouseout="this.style.color = '#b3b3b3'"
       >
-        ❤️ Favorito
-      </button>
-    </div>
-  </div>
-</main>
+        ← Voltar
+      </div>
 
-<script>
-  let filmeAtual = null;
+      <div class="area-poster">
+        <div class="poster-gigante" id="filme-poster"></div>
+      </div>
 
-  document.addEventListener("DOMContentLoaded", async () => {
-    // CARREGA A FOTO DO AVATAR NO HEADER
-    const fotoSalva =
-      localStorage.getItem("fotoPerfil") || "assets/img/default-avatar.png";
-    const elementoAvatar = document.getElementById("avatar-menu");
-    if (elementoAvatar) {
-      elementoAvatar.style.backgroundImage = `url('${fotoSalva}')`;
-    }
+      <div class="area-info">
+        <h1 id="filme-titulo">Carregando...</h1>
+        <div class="metadados">
+          <span id="filme-ano">-</span>
+          <span id="filme-duracao">-</span>
+        </div>
 
-    // Carrega os dados da URL e busca no Back-end
-    const parametrosUrl = new URLSearchParams(window.location.search);
-    const id = parametrosUrl.get("id");
-    const tipo = parametrosUrl.get("tipo");
+        <div class="sinopse-titulo">Sinopse</div>
+        <p class="sinopse-texto" id="filme-sinopse">
+          Carregando detalhes do filme...
+        </p>
 
-    if (id && tipo) {
-      fetch(
-        `http://localhost:8080/api/filmes/detalhes?id=${id}&tipo=${encodeURIComponent(tipo)}`,
-      )
-        .then((res) => {
-          if (!res.ok) throw new Error("Erro na API");
-          return res.json();
-        })
-        .then((filme) => {
-          // LINHA DE DIAGNÓSTICO: Vamos ver as entranhas do objeto enviado pelo Java
-          console.log("O JAVA MANDOU ISSO AQUI ->", filme);
+        <div class="botoes-lista">
+          <button class="btn-lista" onclick="salvarNasListas('QUERO_ASSISTIR')">
+            🍿 Quero Assistir
+          </button>
+          <button class="btn-lista" onclick="salvarNasListas('ASSISTIDO')">
+            ✅ Já Assistido
+          </button>
+          <button
+            class="btn-lista btn-favorito"
+            onclick="salvarNasListas('FAVORITO')"
+          >
+            ❤️ Favorito
+          </button>
+        </div>
+      </div>
+    </main>
 
-          // 1. Substitui o "Carregando..." pelo título real vindo do Java
-          const elementoTitulo = document.getElementById("filme-titulo");
-          if (elementoTitulo)
-            elementoTitulo.textContent =
-              filme.titulo || "Título indisponível";
+    <script>
+      let filmeAtual = null;
 
-          // 2. Alimenta a sinopse
-          const elementoSinopse = document.getElementById("filme-sinopse");
-          if (elementoSinopse) {
-            elementoSinopse.textContent = filme.sinopse
-              ? filme.sinopse
-              : "Nenhuma sinopse disponível em português para este título.";
-            elementoSinopse.style.color = "#b3b3b3";
+      document.addEventListener("DOMContentLoaded", async () => {
+        // CARREGA A FOTO DO AVATAR NO HEADER
+        const fotoSalva =
+          localStorage.getItem("fotoPerfil") || "assets/img/default-avatar.png";
+        const elementoAvatar = document.getElementById("avatar-menu");
+        if (elementoAvatar) {
+          elementoAvatar.style.backgroundImage = `url('${fotoSalva}')`;
+        }
+
+        // Carrega os dados da URL e busca no Back-end
+        const parametrosUrl = new URLSearchParams(window.location.search);
+        const id = parametrosUrl.get("id");
+        const tipo = parametrosUrl.get("tipo");
+
+        if (id && tipo) {
+          fetch(
+            `http://localhost:8080/api/filmes/detalhes?id=${id}&tipo=${encodeURIComponent(tipo)}`,
+          )
+            .then((res) => {
+              if (!res.ok) throw new Error("Erro na API");
+              return res.json();
+            })
+            .then((filme) => {
+              // LINHA DE DIAGNÓSTICO: Vamos ver as entranhas do objeto enviado pelo Java
+              console.log("O JAVA MANDOU ISSO AQUI ->", filme);
+
+              // 1. Substitui o "Carregando..." pelo título real vindo do Java
+              const elementoTitulo = document.getElementById("filme-titulo");
+              if (elementoTitulo)
+                elementoTitulo.textContent =
+                  filme.titulo || "Título indisponível";
+
+              // 2. Alimenta a sinopse
+              const elementoSinopse = document.getElementById("filme-sinopse");
+              if (elementoSinopse) {
+                elementoSinopse.textContent = filme.sinopse
+                  ? filme.sinopse
+                  : "Nenhuma sinopse disponível em português para este título.";
+                elementoSinopse.style.color = "#b3b3b3";
+              }
+
+              // 3. Atualiza o ano e a duração
+              const elementoAno = document.getElementById("filme-ano");
+              if (elementoAno) {
+                // Mantemos apenas o padrão do Java
+                elementoAno.textContent = filme.anoLancamento || "N/A";
+              }
+
+              const elementoDuracao = document.getElementById("filme-duracao");
+              if (elementoDuracao)
+                elementoDuracao.textContent =
+                  filme.duracao || "Duração indisponível";
+
+              // 4. Carrega o pôster de fundo
+              const elementoPoster = document.getElementById("filme-poster");
+              if (elementoPoster && filme.imagemUrl) {
+                elementoPoster.style.backgroundImage = `url('${filme.imagemUrl}')`;
+              }
+            })
+            .catch((err) => {
+              console.error("Erro ao renderizar a tela:", err);
+              // Só mostra o erro crítico se a requisição falhar por completo (ex: Java desligado)
+              const elementoSinopse = document.getElementById("filme-sinopse");
+              if (
+                elementoSinopse &&
+                elementoSinopse.textContent.includes("Carregando")
+              ) {
+                elementoSinopse.textContent = "Erro de conexão com o servidor.";
+                elementoSinopse.style.color = "red";
+              }
+            });
+        }
+      });
+
+      async function salvarNasListas(statusAcao) {
+        // 1. Pega os parâmetros da URL (?id=1668&tipo=Série)
+        const parametrosUrl = new URLSearchParams(window.location.search);
+        const idUrl = parametrosUrl.get("id");
+
+        // 2. Captura os dados que estão renderizados na tela
+        const titulo = document.getElementById("filme-titulo").textContent;
+        const sinopse = document.getElementById("filme-sinopse").textContent;
+        const ano = document.getElementById("filme-ano").textContent;
+        const duracao = document.getElementById("filme-duracao").textContent;
+
+        // Captura a imagem de fundo do pôster e limpa as aspas do CSS
+        const elementoPoster = document.getElementById("filme-poster");
+        const imagemUrl = elementoPoster.style.backgroundImage.slice(5, -2);
+
+        // 3. Monta o objeto EXATAMENTE com os nomes do seu Filme.java
+        const filmeParaSalvar = {
+          idExterno: idUrl ? parseInt(idUrl) : null, // Converte a String da URL para Long (Número)
+          titulo: titulo,
+          genero: parametrosUrl.get("tipo"),
+          imagemUrl: imagemUrl,
+          sinopse: sinopse,
+          anoLancamento: ano,
+          duracao: duracao,
+          statusLista: statusAcao, // Envia 'QUERO_ASSISTIR', 'ASSISTIDO' ou 'FAVORITO' para o statusLista
+        };
+
+        try {
+          // 4. Envia os dados para o seu FilmeController
+          const userId = localStorage.getItem("userId");
+
+          const resposta = await fetch(
+            `http://localhost:8080/api/filmes/salvar/${userId}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(filmeParaSalvar),
+            },
+          );
+
+          if (resposta.ok) {
+            alert("Adicionado com sucesso!");
+          } else {
+            const erro = await resposta.text();
+
+            if (erro.includes("Filme já está nessa lista")) {
+              alert("Esse filme já está nessa lista.");
+            } else {
+              alert("Erro ao salvar nas suas listas.");
+            }
           }
-
-          // 3. Atualiza o ano e a duração
-          const elementoAno = document.getElementById("filme-ano");
-          if (elementoAno) {
-            // Mantemos apenas o padrão do Java
-            elementoAno.textContent = filme.anoLancamento || "N/A";
-          }
-
-          const elementoDuracao = document.getElementById("filme-duracao");
-          if (elementoDuracao)
-            elementoDuracao.textContent =
-              filme.duracao || "Duração indisponível";
-
-          // 4. Carrega o pôster de fundo
-          const elementoPoster = document.getElementById("filme-poster");
-          if (elementoPoster && filme.imagemUrl) {
-            elementoPoster.style.backgroundImage = `url('${filme.imagemUrl}')`;
-          }
-        })
-        .catch((err) => {
-          console.error("Erro ao renderizar a tela:", err);
-          // Só mostra o erro crítico se a requisição falhar por completo (ex: Java desligado)
-          const elementoSinopse = document.getElementById("filme-sinopse");
-          if (
-            elementoSinopse &&
-            elementoSinopse.textContent.includes("Carregando")
-          ) {
-            elementoSinopse.textContent = "Erro de conexão com o servidor.";
-            elementoSinopse.style.color = "red";
-          }
-        });
-    }
-  });
-
-  async function salvarNasListas(statusAcao) {
-    // 1. Pega os parâmetros da URL (?id=1668&tipo=Série)
-    const parametrosUrl = new URLSearchParams(window.location.search);
-    const idUrl = parametrosUrl.get("id");
-
-    // 2. Captura os dados que estão renderizados na tela
-    const titulo = document.getElementById("filme-titulo").textContent;
-    const sinopse = document.getElementById("filme-sinopse").textContent;
-    const ano = document.getElementById("filme-ano").textContent;
-    const duracao = document.getElementById("filme-duracao").textContent;
-
-    // Captura a imagem de fundo do pôster e limpa as aspas do CSS
-    const elementoPoster = document.getElementById("filme-poster");
-    const imagemUrl = elementoPoster.style.backgroundImage.slice(5, -2);
-
-    // 3. Monta o objeto EXATAMENTE com os nomes do seu Filme.java
-    const filmeParaSalvar = {
-      idExterno: idUrl ? parseInt(idUrl) : null, // Converte a String da URL para Long (Número)
-      titulo: titulo,
-      genero: parametrosUrl.get("tipo"),
-      imagemUrl: imagemUrl,
-      sinopse: sinopse,
-      anoLancamento: ano,
-      duracao: duracao,
-      statusLista: statusAcao, // Envia 'QUERO_ASSISTIR', 'ASSISTIDO' ou 'FAVORITO' para o statusLista
-    };
-
-    try {
-      // 4. Envia os dados para o seu FilmeController
-      const userId = localStorage.getItem("userId");
-
-      const resposta = await fetch(
-        `http://localhost:8080/api/filmes/salvar/${userId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(filmeParaSalvar),
-        },
-      );
-
-      if (resposta.ok) {
-        alert("Adicionado com sucesso!");
-      } else {
-        const erro = await resposta.text();
-
-        if (erro.includes("Filme já está nessa lista")) {
-          alert("Esse filme já está nessa lista.");
-        } else {
-          alert("Erro ao salvar nas suas listas.");
+        } catch (erro) {
+          console.error("Erro na requisição:", erro);
+          alert("Erro de conexão com o servidor.");
         }
       }
-    } catch (erro) {
-      console.error("Erro na requisição:", erro);
-      alert("Erro de conexão com o servidor.");
-    }
-  }
-</script>
-</body>
+    </script>
+  </body>
 </html>
